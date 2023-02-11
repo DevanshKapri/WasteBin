@@ -12,6 +12,9 @@ import "./vendor/login/select2/select2.min.css";
 import "./vendor/login/daterangepicker/daterangepicker.css";
 import "./css/login/util.css";
 import "./css/login/main.css";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import {auth } from '../../firebase';
+
 export default function Login(props) {
   const [state, setState] = useState({
     email: "",
@@ -25,25 +28,44 @@ export default function Login(props) {
     // console.log(state);
   };
   const [role, setRole] = useState("User");
+  const [token, setToken] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [user, setUser] = useState({});
+  const SubmitMongo = async () => {
+    await axios.post('http://localhost:8000/login', {
+      email: state.email,
+    })
+      .then((response) => {
+        localStorage.setItem('user', JSON.stringify(response.data));
+        setUser(response.data)
+        console.log(response.data);
+      })
+      .catch((error) => {
+        setErrorMessage(error);
+        console.log(error);
+      });
+  }
 
-  const handleRoleChange = (event: SelectChangeEvent) => {
+    
+
+  const handleRoleChange = (event) => {
     setRole(event.target.value);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
+
     // console.log(state);
-    axios
-      .post("http://localhost:" + (process.env.PORT || 8000) + "/login", state)
-      .then((res) => {
-        if (res.data) {
-          props.setToken(res.data);
-          e.target.submit();
-        } else {
-          alert("Invalid email or password");
-        }
+    await signInWithEmailAndPassword(auth, state.email, state.password)
+      .then((userCredential) => {
+        setToken(userCredential.user.accessToken)
+        setErrorMessage('User signed successfully')
+        localStorage.setItem('token', JSON.stringify(userCredential.user.accessToken));
+        console.log(userCredential.user.accessToken);
+        SubmitMongo()
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
+        setErrorMessage(error.message);
       });
   };
   return (
@@ -80,6 +102,7 @@ export default function Login(props) {
                 <select
                   className="form-select form-select-sm"
                   aria-label=".form-select-sm example"
+                  onChange = {handleRoleChange}
                 >
                   <option value="user">User</option>
                   <option value="collector">Collector</option>
@@ -118,7 +141,9 @@ export default function Login(props) {
                   data-placeholder="&#xe80f;"
                 ></span>
               </div>
-
+              {errorMessage && (
+                  <div> {errorMessage}</div> 
+                )}
               <div className="container-login100-form-btn m-t-32">
                 <button className="login100-form-btn" type="submit">
                   Login

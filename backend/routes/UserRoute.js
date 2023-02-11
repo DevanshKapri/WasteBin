@@ -31,6 +31,20 @@ router.post('/register', async(req, res) => {
     }
 })
 
+router.post('/login', async(req, res) => {
+    const data = req.body
+
+    const user = await User.find({ email : data.email})
+    if(user) {
+        console.log(user)
+        return res.status(200).json(user)
+    }
+    else {
+        console.log('User does not exist');
+        return res.status(400).json({ error : 'User does not exist'})
+    }
+})
+
 router.get('/getRequests', async(req, res) => {
     const requests = await Request.find()
     console.log(requests)
