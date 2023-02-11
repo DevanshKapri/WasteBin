@@ -29,7 +29,11 @@ import { DonorForm } from "./comp/Form";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserRequests from "./UserRequests";
+import HistoryIcon from '@mui/icons-material/History';
 import axios from "axios";
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
 // import UserDistance from './UserDistance';
 const drawerWidth = 240;
 
@@ -188,7 +192,25 @@ const Dashboard = () => {
                 justifyContent: "center",
               }}
             >
-              <InboxIcon />
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
+          </ListItemButton>
+          <ListItemButton
+            sx={{
+              minHeight: 48,
+              justifyContent: open ? "initial" : "center",
+              px: 2.5,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : "auto",
+                justifyContent: "center",
+              }}
+            >
+              <HistoryIcon />
             </ListItemIcon>
             <ListItemText primary="History" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
@@ -206,7 +228,7 @@ const Dashboard = () => {
                 justifyContent: "center",
               }}
             >
-              <InboxIcon />
+              <PersonIcon />
             </ListItemIcon>
             <ListItemText primary="Profile" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
@@ -230,7 +252,7 @@ const Dashboard = () => {
                 justifyContent: "center",
               }}
             >
-              <InboxIcon />
+              <LogoutIcon />
             </ListItemIcon>
             <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>

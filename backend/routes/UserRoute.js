@@ -35,7 +35,7 @@ router.post('/register', async(req, res) => {
 router.post('/login', async(req, res) => {
     const data = req.body
 
-    const user = await User.find({ email : data.email})
+    const user = await User.findOne({ email : data.email})
     if(user) {
         console.log(user)
         return res.status(200).json(user)
@@ -55,6 +55,7 @@ router.get('/getRequests', async(req, res) => {
 
 router.post('/addRequest', async(req, res) => {
     const data = req.body
+    console.log(data)
     const user = await User.findOne({ email : data.email})
     if(user) {
         const request = new Request({
@@ -64,12 +65,14 @@ router.post('/addRequest', async(req, res) => {
             latitude : data.latitude,
             longitude : data.longitude,
             status : 'pending',
-            collector : null,
         })
         await request.save()
                     .then((request) => {
                         user.requests.push(request._id)
                         user.save()
+                        return request;
+                    })
+                    .then((request) => {
                         return res.status(200).json(request)
                     })
                     .catch((err) => {
@@ -78,6 +81,7 @@ router.post('/addRequest', async(req, res) => {
                     })
     }
     else {
+        console.log('User does not exist');
         return res.status(400).json({ error : 'User does not exist'})
     }
 })

@@ -126,6 +126,9 @@ export const DonorForm = () => {
         e.preventDefault()
 
         console.log(User)
+        if(!User){
+            navigate('/')
+        }
 
         await axios.post('http://localhost:8000/addrequest', {
             email: User.email,
