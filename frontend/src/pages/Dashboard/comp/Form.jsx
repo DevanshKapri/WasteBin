@@ -9,6 +9,7 @@ import {
     ref,
     uploadBytesResumable, getDownloadURL
 } from "firebase/storage";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -29,6 +30,8 @@ import {
 export const DonorForm = () => {
     const [tableactive, settable] = React.useState('hide');
     const [donorNo, setdonorNo] = React.useState(0)
+    const [User, setUser] = React.useState(null);
+    const navigate = useNavigate()
 
     const [file, setFile] = useState("");
     const [imgurl, setimgurl] = useState('');
@@ -101,12 +104,40 @@ export const DonorForm = () => {
                 });
             }
         );
-    };
+    }
+    useEffect(() => {
+        locationfinder()
+        const user = JSON.parse(localStorage.getItem('user'))
+        if(user){
+            console.log(user)
+            setUser(user)
+        }
+        else
+            navigate('/')
+    }, [])
 
-    const handlesubmit = () => {
+    const handlesubmit = async (e) => {
+        e.preventDefault()
+
+        console.log(User)
+
+        await axios.post('http://localhost:8000/addrequest', {
+            email : User.email,
+            latitude,
+            longitude,
+            photoUrl : imgurl,
+            message
+        })
+        .then((response) => {
+            console.log(response.data);
+
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 
     }
-    
+
 
 
     return (
