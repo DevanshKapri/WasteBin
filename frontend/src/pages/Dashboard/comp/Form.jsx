@@ -45,10 +45,11 @@ export const DonorForm = () => {
     const [address, setaddress] = useState('');
 
     const [open, setOpen] = useState(false)
+    const [wasteType, setwasteType] = useState('')
 
 
 
-    //   console.log(imgurl)
+      console.log(wasteType)
 
 
 
@@ -135,7 +136,8 @@ export const DonorForm = () => {
             latitude,
             longitude,
             photoUrl: imgurl,
-            message
+            message,
+            wasteType
         })
             .then((response) => {
                 console.log(response.data);
@@ -253,7 +255,7 @@ export const DonorForm = () => {
                     <button type="submit" className="btn btn-primary" onClick={handlesubmit}>Submit</button>
                 </div>
 
-                {open && <Modal_prop imgurl = {imgurl} />}
+                {open && <Modal_prop imgurl = {imgurl} setwasteType = {setwasteType}/>}
 
             </div>
             <div className="listContainer">

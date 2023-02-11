@@ -30,6 +30,10 @@ const requestSchema = new Schema({
         type : Date,
         default : null
     },
+    wasteType : {
+        type : String,
+        required : true
+    },
     collector : {
         type : Schema.Types.ObjectId,
         ref : 'user',

@@ -31,6 +31,11 @@ import { useNavigate } from 'react-router-dom';
 import Cal_comp_pick from '../../Components/calendar/Cal_comp_pick';
 import CollectorSchedule from '../Dashboard/CollectorSchedule';
 import CollectorResponse from '../Dashboard/UserDistance';
+import UserDistance from '../Dashboard/UserDistance';
+import axios from 'axios';
+import {useState} from 'react';
+import haversine from 'haversine'
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -100,15 +105,59 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const Dashboard_collector = () => {
   const navigate = useNavigate();
+  const [requests, setRequests] = React.useState([]);
+  const [user, setUser] = React.useState([]);
+  const [longitude, setlongitude] = useState(0)
+  const [latitude, setlatitude] = useState(0)
+  const getRequests = async () => {
+    await axios
+      .get("http://localhost:8000/getRequests")
+      .then((res) => {
+        console.log(res.data);
+        return res.data;
+      })
+      .then((res) => {
+        const data = res.filter((item) => item.status === "pending");
+        return data;
+      })
+      .then ((res) => {
+        for(let i=0; i<res.length; i++){
+          const dist = haversine({latitude: latitude, longitude: longitude}, {latitude: res[i].latitude, longitude: res[i].longitude}, {unit: 'meter'})
+          res[i].distance = dist
+          console.log(dist)
+        }
+        return res;
+      })
+      .then((res) => {
+        // console.log(res.data);
+        console.log(res);
+        setRequests(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const locationfinder = () => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+        console.log("Latitude is :", position.coords.latitude);
+        setlatitude(position.coords.latitude)
+        console.log("Longitude is :", position.coords.longitude);
+        setlongitude(position.coords.longitude)
+
+    });
+}
+
   useEffect(() => {
+    locationfinder()
     const token = JSON.parse(localStorage.getItem('token'));
     const User = JSON.parse(localStorage.getItem('user'));
-    if (token) {
+    if (token && User.role === 'collector' && User.status === 'verified') {
+      setUser(User);
     }
-    else
-      navigate('/');
-    if (User.role === 'collector' && User.status === 'unverified')
-      navigate('/');
+    getRequests();
+    // else
+    //   navigate('/');
   }, [])
 
   const theme = useTheme();
@@ -228,6 +277,7 @@ const Dashboard_collector = () => {
 
 
         {/* <CollectorSchedule /> */}
+        <UserDistance data = {requests}/>
       </Box>
     </Box >
   );
