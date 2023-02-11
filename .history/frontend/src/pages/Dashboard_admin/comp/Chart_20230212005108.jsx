@@ -6,55 +6,22 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  BarChart,
-  YAxis,
-  Legend,
-  Bar
 } from "recharts";
 
 const data = [
-  {
-    "name": "Page A",
-    "uv": 4000,
-    "pv": 2400
-  },
-  {
-    "name": "Page B",
-    "uv": 3000,
-    "pv": 1398
-  },
-  {
-    "name": "Page C",
-    "uv": 2000,
-    "pv": 9800
-  },
-  {
-    "name": "Page D",
-    "uv": 2780,
-    "pv": 3908
-  },
-  {
-    "name": "Page E",
-    "uv": 1890,
-    "pv": 4800
-  },
-  {
-    "name": "Page F",
-    "uv": 2390,
-    "pv": 3800
-  },
-  {
-    "name": "Page G",
-    "uv": 3490,
-    "pv": 4300
-  }
-]
+  { name: "January", Total: 1200 },
+  { name: "February", Total: 2100 },
+  { name: "March", Total: 800 },
+  { name: "April", Total: 1600 },
+  { name: "May", Total: 900 },
+  { name: "June", Total: 1700 },
+];
 
 const Chart = ({ aspect, title }) => {
   return (
     <div className="chart">
       <div className="title">{title}</div>
-      <ResponsiveContainer width="100%" aspect={aspect} style={{marginBottom: "2rem"}}>
+      <ResponsiveContainer width="100%" aspect={aspect}>
         <BarChart width={730} height={250} data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />

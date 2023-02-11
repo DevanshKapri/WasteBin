@@ -208,18 +208,26 @@ const Dashboard_admin = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Grid container spacing={6}>
+        <Grid container spacing={8}>
+
+
+          <Grid_comp />
           <Grid_comp />
           <Grid_comp />
           <Grid_comp />
         </Grid>
 
-        <div style={{ display: "flex", padding: "10px 20px", gap: "20px", marignTop: "8rem" }}>
-          <PieChart  />
+        <div style={{ display: "flex", padding: "5px 20px", gap: "20px", marignTop: "8rem" }}>
+          <PieChart />
           <Chart />
         </div>
 
         <CollectorSchedule />
+
+        <div className="Form" >
+          <DonorForm />
+          <div />
+        </div>
       </Box>
     </Box >
   );

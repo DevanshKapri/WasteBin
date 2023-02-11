@@ -208,18 +208,31 @@ const Dashboard_admin = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Grid container spacing={6}>
-          <Grid_comp />
-          <Grid_comp />
-          <Grid_comp />
+        <Grid container spacing={8}>
+          <Grid container spacing={6}>
+            <Grid_comp header="Congratulations , User!"
+              subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
+              button="Redeem Credits" />
+            <Grid_comp header="Congratulations , User!"
+              subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
+              button="Redeem Credits" />
+            <Grid_comp header="Congratulations , User!"
+              subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
+              button="Redeem Credits" />
+          </Grid>
         </Grid>
 
-        <div style={{ display: "flex", padding: "10px 20px", gap: "20px", marignTop: "8rem" }}>
-          <PieChart  />
+        <div style={{ display: "flex", padding: "5px 20px", gap: "20px", marignTop: "8rem" }}>
+          <PieChart />
           <Chart />
         </div>
 
         <CollectorSchedule />
+
+        <div className="Form" >
+          <DonorForm />
+          <div />
+        </div>
       </Box>
     </Box >
   );

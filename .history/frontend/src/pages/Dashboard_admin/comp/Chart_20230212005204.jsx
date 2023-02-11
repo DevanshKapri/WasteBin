@@ -7,9 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   BarChart,
-  YAxis,
-  Legend,
-  Bar
+  YAxis
 } from "recharts";
 
 const data = [
@@ -54,7 +52,7 @@ const Chart = ({ aspect, title }) => {
   return (
     <div className="chart">
       <div className="title">{title}</div>
-      <ResponsiveContainer width="100%" aspect={aspect} style={{marginBottom: "2rem"}}>
+      <ResponsiveContainer width="100%" aspect={aspect}>
         <BarChart width={730} height={250} data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />

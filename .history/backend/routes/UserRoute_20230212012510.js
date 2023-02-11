@@ -46,5 +46,9 @@ router.post('/login', async (req, res) => {
     }
 })
 
+router.post("/notification")
+
+
+
 
 module.exports = router;
