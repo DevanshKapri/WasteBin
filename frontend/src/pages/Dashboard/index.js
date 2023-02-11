@@ -1,31 +1,36 @@
-import * as React from "react";
-import { styled, useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import MuiDrawer from "@mui/material/Drawer";
-import MuiAppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import CssBaseline from "@mui/material/CssBaseline";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import { Grid, Paper } from "@mui/material";
-import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
-import Grid_comp from "./comp/Grid_comp";
-import Chart from "./comp/Chart";
-import PieChart from "./comp/PieChart";
-import Table from "./comp/Table_comp";
-import Table_comp from "./comp/Table_comp";
-import { DonorForm } from "./comp/Form";
+import * as React from 'react';
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import MuiDrawer from '@mui/material/Drawer';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import CssBaseline from '@mui/material/CssBaseline';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+import { Grid, Paper } from '@mui/material';
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
+import Grid_comp from './comp/Grid_comp';
+import Chart from './comp/Chart';
+import PieChart from './comp/PieChart';
+import Table from './comp/Table_comp';
+import Table_comp from './comp/Table_comp';
+import { DonorForm } from './comp/Form';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import UserRequests from './UserRequests';
+import axios from 'axios';
+// import UserDistance from './UserDistance';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -94,6 +99,39 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const [requests, setRequests] = React.useState([]);
+  const [user, setUser] = React.useState([]);
+  const getRequests = async () => {
+    await axios.get('http://localhost:8000/getRequests')
+      .then(res => {
+        // console.log(res.data);
+        setRequests(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const User = JSON.parse(localStorage.getItem('user'));
+    if (token && User) {
+      setUser(User);
+      if(User.role === 'User')
+      {
+        getRequests();
+      }
+    }
+    else
+      navigate('/');
+    if (User.role === 'collector' && User.status === 'unverified')
+      navigate('/');
+  }, [])
+
+
+  const data = requests.filter((item) => item.user === user._id);
+  console.log(data);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -223,17 +261,17 @@ const Dashboard = () => {
             <Chart />
           </div>
 
-          <div className="table">
-            <Table_comp />
-          </div>
+        <div className="Form" style={{ marignTop: "10rem" }} >
+          <DonorForm />
+          <div />
+        </div>
+        <UserRequests data = {data}/>
+        
 
-          <div className="Form">
-            <DonorForm />
-            <div />
-          </div>
-        </Box>
       </Box>
-    </>
+
+
+    </Box >
   );
 };
 
