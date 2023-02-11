@@ -9,9 +9,9 @@ const Home = () => {
     <div className="home-container">
       <Navbar />
       <div className="home-banner-container">
-        <div className="home-bannerImage-container">
+         <div className="home-bannerImage-container">
           <img src={BannerBackground} alt="" />
-        </div>
+        </div> 
         <div className="home-text-section">
           <h1 className="primary-heading">
             Your Favourite Food Delivered Hot & Fresh

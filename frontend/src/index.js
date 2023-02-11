@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard_collector from "./pages/Dashboard_collector";
 import Dashboard_admin from "./pages/Dashboard_admin";
+import Credit from "./pages/Credit/Credit";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -19,6 +20,7 @@ root.render(
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/collector" element={<Dashboard_collector />} />
         <Route path="/admin" element={<Dashboard_admin />} />
+        {/* <Route path="/credit" element={<Credit />} /> */}
       </Routes>
     </BrowserRouter>
     {/* <App /> */}

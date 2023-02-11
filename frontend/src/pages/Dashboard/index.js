@@ -118,8 +118,7 @@ const Dashboard = () => {
     const User = JSON.parse(localStorage.getItem('user'));
     if (token && User) {
       setUser(User);
-      if(User.role === 'User')
-      {
+      if (User.role === 'User') {
         getRequests();
       }
     }
@@ -261,18 +260,20 @@ const Dashboard = () => {
             <Chart />
           </div>
 
-        <div className="Form" style={{ marignTop: "10rem" }} >
-          <DonorForm />
-          <div />
-        </div>
-        <UserRequests data = {data}/>
-        
-
-      </Box>
+          <div className="Form" style={{ marignTop: "10rem" }} >
+            <DonorForm />
+            <div />
+          </div>
+          <UserRequests data={data} />
 
 
-    </Box >
-  );
-};
+        </Box>
+
+
+      </Box >
+    </>
+  )
+
+}
 
 export default Dashboard;
