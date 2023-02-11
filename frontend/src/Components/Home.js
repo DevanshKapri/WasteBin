@@ -1,6 +1,6 @@
 import React from "react";
 import BannerBackground from "../Assets/home-banner-background.png";
-import BannerImage from "../Assets/home-banner-image.png";
+import BannerImage from "../Assets/cover-image.jpg";
 import Navbar from "./Navbar";
 import { FiArrowRight } from "react-icons/fi";
 
@@ -25,7 +25,11 @@ const Home = () => {
           </button>
         </div>
         <div className="home-image-section">
-          <img src={BannerImage} alt="" />
+          <img
+            src={BannerImage}
+            style={{ borderRadius: "115px", width: "250px" }}
+            alt=""
+          />
         </div>
       </div>
     </div>
