@@ -10,7 +10,6 @@ import {
     uploadBytesResumable, getDownloadURL
 } from "firebase/storage";
 import { useNavigate } from 'react-router-dom';
-import Modal_prop from '../../../Components/Modal_prop';
 
 
 
@@ -29,7 +28,6 @@ import Modal_prop from '../../../Components/Modal_prop';
 
 
 export const DonorForm = () => {
-
     const [tableactive, settable] = React.useState('hide');
     const [donorNo, setdonorNo] = React.useState(0)
     const [User, setUser] = React.useState(null);
@@ -43,8 +41,6 @@ export const DonorForm = () => {
     const [quantity, setquantity] = useState(0);
     const [type, settype] = useState("Other");
     const [address, setaddress] = useState('');
-
-    const [open, setOpen] = useState(false)
 
 
 
@@ -76,8 +72,6 @@ export const DonorForm = () => {
 
 
     const handleUpload = () => {
-
-        setOpen(!open)
         console.log(file)
         if (!file) {
             alert("Please upload an image first!");
@@ -114,7 +108,7 @@ export const DonorForm = () => {
     useEffect(() => {
         locationfinder()
         const user = JSON.parse(localStorage.getItem('user'))
-        if (user) {
+        if(user){
             console.log(user)
             setUser(user)
         }
@@ -128,19 +122,19 @@ export const DonorForm = () => {
         console.log(User)
 
         await axios.post('http://localhost:8000/addrequest', {
-            email: User.email,
+            email : User.email,
             latitude,
             longitude,
-            photoUrl: imgurl,
+            photoUrl : imgurl,
             message
         })
-            .then((response) => {
-                console.log(response.data);
+        .then((response) => {
+            console.log(response.data);
 
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 
     }
 
@@ -249,8 +243,6 @@ export const DonorForm = () => {
                     <br />
                     <button type="submit" className="btn btn-primary" onClick={handlesubmit}>Submit</button>
                 </div>
-
-                {open && <Modal_prop imgurl = {imgurl} />}
 
             </div>
             <div className="listContainer">
