@@ -18,8 +18,15 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import {Grid, Paper} from '@mui/material';
+import { Grid, Paper } from '@mui/material';
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
+import Grid_comp from './comp/Grid_comp';
+import Chart from './comp/Chart';
+import PieChart from './comp/PieChart';
+import Table from './comp/Table_comp';
+import Table_comp from './comp/Table_comp';
+import { DonorForm } from './comp/Form';
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -130,93 +137,98 @@ const Dashboard = () => {
         <Divider />
         <List>
           <ListItemButton
-          sx={{
-            minHeight: 48,
-            justifyContent: open ? 'initial' : 'center',
-            px: 2.5,
-          }}
+            sx={{
+              minHeight: 48,
+              justifyContent: open ? 'initial' : 'center',
+              px: 2.5,
+            }}
           >
             <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary="History" sx={{ opacity: open ? 1 : 0 }} />
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : 'auto',
+                justifyContent: 'center',
+              }}
+            >
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="History" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
           <ListItemButton
-          sx={{
-            minHeight: 48,
-            justifyContent: open ? 'initial' : 'center',
-            px: 2.5,
-          }}
+            sx={{
+              minHeight: 48,
+              justifyContent: open ? 'initial' : 'center',
+              px: 2.5,
+            }}
           >
             <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary="Profile" sx={{ opacity: open ? 1 : 0 }} />
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : 'auto',
+                justifyContent: 'center',
+              }}
+            >
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Profile" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
           <ListItemButton
-          sx={{
-            minHeight: 48,
-            justifyContent: open ? 'initial' : 'center',
-            px: 2.5,
-          }}
+            sx={{
+              minHeight: 48,
+              justifyContent: open ? 'initial' : 'center',
+              px: 2.5,
+            }}
           >
             <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : 'auto',
+                justifyContent: 'center',
+              }}
+            >
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Grid container spacing = {8}>
-          <Grid item xs={3} >
-            <Paper sx = {{height : '150px'}}>
-              <Box>
-                <Typography variant="h5" component="h3">Paper</Typography>
-                <AddShoppingCartOutlinedIcon/>
-              </Box>
-              <Box>
+        <Grid container spacing={8}>
 
-              </Box>
-            </Paper>
-          </Grid>
-          <Grid item xs={3}>
+
+          <Grid_comp />
+          <Grid_comp />
+          <Grid_comp />
+          <Grid_comp />
+
+
+
+
+
+
+          {/* <Grid item xs={3}>
             <Paper sx = {{height : '150px'}}>
               <Typography variant="h5" component="h3">Paper</Typography>
             </Paper>
-          </Grid>
-          <Grid item xs={3}>
-            <Paper sx = {{height : '150px'}}>
-              <Typography variant="h5" component="h3">Paper</Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={3}>
-            <Paper sx = {{height : '150px'}}>
-              <Typography variant="h5" component="h3">Paper</Typography>
-            </Paper>
-          </Grid>
+          </Grid> */}
         </Grid>
+
+        <div style={{ display: "flex", padding: "5px 20px", gap: "20px", marignTop: "8rem" }}>
+          <PieChart />
+          <Chart />
+        </div>
+
+        <div className="table">
+          <Table_comp />
+        </div>
+
+        <div className="Form" >
+          <DonorForm />
+          <div />
+        </div>
       </Box>
-    </Box>
+    </Box >
   );
 }
 
