@@ -61,6 +61,8 @@ router.post('/addRequest', async(req, res) => {
             message : data.message,
             photoUrl : data.photoUrl,
             user : user._id,
+            latitude : data.latitude,
+            longitude : data.longitude,
             status : 'pending',
             collector : null,
         })
@@ -132,25 +134,44 @@ router.post('/completeRequest', async(req, res) => {
     }
 })
 
-router.post('verifyCollector', async(req, res) => {
+router.post('/getAllCollectors', async(req, res) => {
     const data = req.body
     const user = await User.findOne({ email: data.email})
     if(user && user.role === 'admin') {
-        const collector = await User.findOne({ email: data.collectorEmail})
-        if(collector) {
-            collector.status = 'verified'
-            await collector.save()
-                        .then((collector) => {
-                            const all = User.find({ role: 'collector'})
-                            return res.status(200).json(all)
-                        })
-                        .catch((err) => {
-                            console.log(err)
-                            return res.status(500).json(err)
-                        })
-        }
+        const collectors = await User.find({ role: 'collector'})
+        return res.status(200).json(collectors)
+    }
+    else {
+        return res.status(400).json({ error : 'User does not exist or is not an admin'})
     }
 })
+
+
+// router.post('/verifyCollector', async(req, res) => {
+//     const data = req.body
+//     const user = await User.findOne({ email: data.email})
+//     if(user && user.role === 'admin') {
+//         const collector = await User.findOne({ email: data.collectorEmail})
+//         if(collector) {
+//             collector.status = 'verified'
+//             await collector.save()
+//                         .then((collector) => {
+                            
+//                             return res.status(200).json(all)
+//                         })
+//                         .catch((err) => {
+//                             console.log(err)
+//                             return res.status(500).json(err)
+//                         })
+//         }
+//         else {
+//             return res.status(400).json({ error : 'Collector does not exist'})
+//         }
+//     }
+//     else {
+//         return res.status(400).json({ error : 'User does not exist or is not an admin'})
+//     }
+// })
 
 
 
