@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const UserRoute = require('./routes/UserRoute');
+const AdminRoute = require('./routes/AdminRoute');
+const RequestRoute = require('./routes/RequestRoute');
 const db = require('./db')
 
 dotenv.config();
@@ -18,6 +20,8 @@ app.get('/', (req, res) => {
 db();
 
 app.use('/', UserRoute);
+app.use('/', AdminRoute);
+app.use('/', RequestRoute);
 
 const PORT = process.env.PORT || 8000;
 
