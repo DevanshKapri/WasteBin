@@ -20,7 +20,7 @@ root.render(
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/collector" element={<Dashboard_collector />} />
         <Route path="/admin" element={<Dashboard_admin />} />
-        {/* <Route path="/credit" element={<Credit />} /> */}
+        <Route path="/credit" element={<Credit />} />
       </Routes>
     </BrowserRouter>
     {/* <App /> */}

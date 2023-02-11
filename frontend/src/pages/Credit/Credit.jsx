@@ -115,7 +115,7 @@ const Credit = () => {
         <>
 
             <Typography variant="h2" noWrap component="div" style={{marginTop: "10rem" , textAlign: "center"}}>
-                Welcome User
+                Welcome, User!
             </Typography>
 
             <Typography variant="h4" noWrap component="div" style={{textAlign: "center",marginTop: "2rem"}}>
