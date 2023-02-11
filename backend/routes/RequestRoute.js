@@ -69,6 +69,7 @@ router.post('/addRequest', async(req, res) => {
 router.post('/acceptRequest', async(req, res) => {
     const data = req.body
     const user = await User.findOne({ email : data.email})
+    // console.log(user)
     if(user && user.role === 'collector' && user.status === 'verified') {
         const request = await Request.findOne({ _id : data.requestId})
         let req = await Request.find();
