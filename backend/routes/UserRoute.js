@@ -5,6 +5,7 @@ const Request = require('../models/RequestModel');
 
 router.post('/register', async(req, res) => {
     const data = req.body
+    console.log(data.role)
     const user = await User.findOne({ email : data.email})
 
     if(user) {
@@ -128,6 +129,26 @@ router.post('/completeRequest', async(req, res) => {
     }
     else {
         return res.status(400).json({ error : 'User does not exist or is not a verified collector'})
+    }
+})
+
+router.post('verifyCollector', async(req, res) => {
+    const data = req.body
+    const user = await User.findOne({ email: data.email})
+    if(user && user.role === 'admin') {
+        const collector = await User.findOne({ email: data.collectorEmail})
+        if(collector) {
+            collector.status = 'verified'
+            await collector.save()
+                        .then((collector) => {
+                            const all = User.find({ role: 'collector'})
+                            return res.status(200).json(all)
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                            return res.status(500).json(err)
+                        })
+        }
     }
 })
 
