@@ -13,7 +13,10 @@ const About = () => {
       <div className="about-section-image-container">
         <img src={Waste_about} alt="" />
       </div>
-      <div className="about-section-text-container" style={{marginLeft: "20px"}}>
+      <div
+        className="about-section-text-container"
+        style={{ marginLeft: "20px" }}
+      >
         <p className="primary-subheading">About</p>
         <h1 className="primary-heading">
           Food Is An Important Part Of A Balanced Diet
@@ -28,7 +31,6 @@ const About = () => {
         </p>
         <div className="about-buttons-container">
           <button className="secondary-button"> Know More</button>
-          
         </div>
       </div>
     </div>

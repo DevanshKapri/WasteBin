@@ -1,6 +1,6 @@
 import React from "react";
-import BannerBackground from "../Assets/home-banner-background.png";
-import BannerImage from "../Assets/cover-image.jpg";
+import BannerBackground from "../Assets/bg-1.png";
+import BannerImage from "../Assets/img-home.png";
 import Navbar from "./Navbar";
 import { FiArrowRight } from "react-icons/fi";
 
@@ -9,9 +9,9 @@ const Home = () => {
     <div className="home-container">
       <Navbar />
       <div className="home-banner-container">
-         <div className="home-bannerImage-container">
+        <div className="home-bannerImage-container">
           <img src={BannerBackground} alt="" />
-        </div> 
+        </div>
         <div className="home-text-section">
           <h1 className="primary-heading">
             Your Favourite Food Delivered Hot & Fresh
@@ -25,11 +25,7 @@ const Home = () => {
           </button>
         </div>
         <div className="home-image-section">
-          <img
-            src={BannerImage}
-            style={{ borderRadius: "115px", width: "250px" }}
-            alt=""
-          />
+          <img src={BannerImage} style={{ width: "500px" }} alt="" />
         </div>
       </div>
     </div>
