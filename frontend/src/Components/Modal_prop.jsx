@@ -40,6 +40,7 @@ const Modal_prop = (props) => {
 
         setresult(data.data.result)
         setconfidance(data.data.confidence)
+        props.setwasteType(data.data.result)
         
     }
 

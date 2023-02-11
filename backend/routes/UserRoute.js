@@ -65,6 +65,7 @@ router.post('/addRequest', async(req, res) => {
             latitude : data.latitude,
             longitude : data.longitude,
             status : 'pending',
+            wasteType : data.wasteType,
         })
         await request.save()
                     .then((request) => {
