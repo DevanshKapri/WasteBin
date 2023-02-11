@@ -4,26 +4,46 @@ import "./Form.css"
 import axios from 'axios';
 import { useEffect } from 'react';
 import Button from '@mui/material/Button';
+import { storage } from '../../../firebase';
+import {
+    ref,
+    uploadBytesResumable, getDownloadURL
+} from "firebase/storage";
 
 
+
+
+// const locationfinder = () => {
+//     navigator.geolocation.getCurrentPosition(function (position) {
+//         console.log("Latitude is :", position.coords.latitude);
+//         setlatitude(position.coords.latitude)
+//         console.log("Longitude is :", position.coords.longitude);
+//         setlongitude(position.coords.longitude)
+
+//     });
+// }
 
 
 
 
 export const DonorForm = () => {
-  const [tableactive,settable]=React.useState('hide');
-  const [donorNo,setdonorNo]=React.useState(0)
+    const [tableactive, settable] = React.useState('hide');
+    const [donorNo, setdonorNo] = React.useState(0)
 
     const [file, setFile] = useState("");
-    const [imgurl,setimgurl]=useState('');
-    const [longitude,setlongitude]=useState(0)
-    const [latitude,setlatitude]=useState(0)
-    const [message,setMessage]=useState('');
-    const [quantity,setquantity]=useState(0);
-    const [type,settype]=useState("Other");
-    const [address,setaddress]=useState('');
+    const [imgurl, setimgurl] = useState('');
+    const [longitude, setlongitude] = useState(0)
+    const [latitude, setlatitude] = useState(0)
+    const [message, setMessage] = useState('');
+    const [quantity, setquantity] = useState(0);
+    const [type, settype] = useState("Other");
+    const [address, setaddress] = useState('');
 
-    
+
+
+    //   console.log(imgurl)
+
+
 
 
     // progress
@@ -31,59 +51,97 @@ export const DonorForm = () => {
 
     // Handle file upload event and update state
     function handleChange(event) {
+        console.log(event)
         setFile(event.target.files[0]);
     }
-    const locationfinder=()=>{
-        navigator.geolocation.getCurrentPosition(function(position) {
+    const locationfinder = () => {
+        navigator.geolocation.getCurrentPosition(function (position) {
             console.log("Latitude is :", position.coords.latitude);
             setlatitude(position.coords.latitude)
             console.log("Longitude is :", position.coords.longitude);
             setlongitude(position.coords.longitude)
-    
+
         });
     }
-    const handlesubmit=()=>{
-         
-    }
+    // const handlesubmit = () => {
+
+    // }
+
 
     const handleUpload = () => {
-        
+        console.log(file)
+        if (!file) {
+            alert("Please upload an image first!");
+        }
+
+        const storageRef = ref(storage, `/files/${file.name}`);
+
+        // progress can be paused and resumed. It also exposes progress updates.
+        // Receives the storage reference and the file to upload.
+        const uploadTask = uploadBytesResumable(storageRef, file);
+        console.log(uploadTask)
+
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                const percent = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+
+                // update progress
+                setPercent(percent);
+                console.log("uploaded")
+            },
+            (err) => console.log(err.message),
+            () => {
+                // download url
+                getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                    setimgurl(url)
+                    console.log(url);
+                });
+            }
+        );
+    };
+
+    const handlesubmit = () => {
+
     }
     
+
 
     return (
         <>
-        <div className='donorForm'>
-            <div className='form-css'>
+            <div className='donorForm'>
+                <div className='form-css'>
 
-                <div className="form-row">
-                    <div className="form-group col-md-6">
-                        <label for="inputEmail4">Message</label>
-                        <input type="text" className="form-control" id="inputEmail4" onChange={(event)=>setMessage(event.target.value)} placeholder="Name of organization" />
+                    <div className="form-row">
+                        <div className="form-group col-md-6">
+                            <label for="inputEmail4">Message</label>
+                            <input type="text" className="form-control" id="inputEmail4" onChange={(event) => setMessage(event.target.value)} placeholder="Name of organization" />
+                        </div>
+
                     </div>
-                    
-                </div>
-                
 
-                
-                {/* <div className="form-group">
+
+
+                    {/* <div className="form-group">
       <label for="inputAddress2">Address 2</label>
       <input type="text" className="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" />
     </div> */}
-                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Type</label> <br />
-                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" onChange={(event) => settype(event.target.value)}>
-                    <option selected>Choose...</option>
-                    <option value="Individual">Individual</option>
-                    <option value="Restaurant">Restaurant</option>
-                    <option value="Hostel">Hostel</option>
-                    <option value="Food_Caterer">Food Caterer</option>
-                    <option value="Hostel">NGO</option>
-                    <option value="Other">Other</option>
-                </select>
+                    {/* <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Type</label> <br />
+                    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" onChange={(event) => settype(event.target.value)}>
+                        <option selected>Choose...</option>
+                        <option value="Individual">Individual</option>
+                        <option value="Restaurant">Restaurant</option>
+                        <option value="Hostel">Hostel</option>
+                        <option value="Food_Caterer">Food Caterer</option>
+                        <option value="Hostel">NGO</option>
+                        <option value="Other">Other</option>
+                    </select> */}
 
 
-                <div className="form-row">
-                    {/* <div className="form-group col-md-6">
+                    <div className="form-row">
+                        {/* <div className="form-group col-md-6">
                         <label for="inputCity">City</label>
                         <input type="text" className="form-control" id="inputCity" />
                     </div>
@@ -131,42 +189,42 @@ export const DonorForm = () => {
                             <option>...</option>
                         </select>
                     </div> */}
-                    <div>
-                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Upload your food image</label> <br />
+                        <div>
+                            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Upload waste image</label> <br />
 
-                        <input type="file" onChange={handleChange} accept="/image/*" />
-                        <br />
-                        <br />
-                        <button onClick={handleUpload}>Upload to Firebase</button>
-                        {/* <p>{percent} "% done"</p> */}
-                        
+                            <input type="file" onChange={handleChange} accept="/image/*" />
+                            <br />
+                            <br />
+                            <button onClick={handleUpload}>Upload to Firebase</button>
+                            {/* <p>{percent} "% done"</p> */}
 
-                        {imgurl && <>
-                        <br />
-                        <br />
-                        <img className='image-height' src={imgurl} alt="" />
-                        
-                        </>}
+
+                            {/* {imgurl && <>
+                                <br />
+                                <br />
+                                <img className='image-height' src={imgurl} alt="" />
+
+                            </>} */}
+                        </div>
+
+
                     </div>
-
-
+                    <br />
+                    <button type="submit" className="btn btn-primary" onClick={handlesubmit}>Submit</button>
                 </div>
-                <br />
-                <button type="submit" className="btn btn-primary" onClick={handlesubmit}>Submit</button>
-            </div>
 
-        </div>
-        <div className="listContainer">
-        {/* {tableactive=="show" &&
+            </div>
+            <div className="listContainer">
+                {/* {tableactive=="show" &&
          <>
          <div className="listTitle">Lastest Transactions</div>
             <TableX latitude={latitude} longitude={longitude} donorNo={donorNo} /></>
          } */}
-         </div>
-          
+            </div>
+
 
         </>
-        
+
 
 
     )
