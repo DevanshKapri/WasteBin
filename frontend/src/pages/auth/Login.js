@@ -16,7 +16,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import {auth } from '../../firebase';
 
 export default function Login(props) {
-  const navigate = useNavigate
+  const navigate = useNavigate()
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -39,8 +39,8 @@ export default function Login(props) {
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
         setUser(response.data)
-        navigate('/dashboard')
         console.log(response.data);
+        navigate('/dashboard')
       })
       .catch((error) => {
         setErrorMessage(error);
@@ -86,20 +86,20 @@ export default function Login(props) {
               action="/"
               onSubmit={handleSubmit}
             >
-              <div className="container-login100-form-btn m-t-16">
+              {/* <div className="container-login100-form-btn m-t-16">
                 <GoogleButton
                   onClick={() => {
                     console.log("Google button clicked");
                   }}
                 />
-              </div>
-              <div className="container-login100-form-btn m-t-16">
+              </div> */}
+              {/* <div className="container-login100-form-btn m-t-16">
                 <h3>OR</h3>
-              </div>
+              </div> */}
               <div className="container-login100-form-btn m-t-16 mb-5">
                 <h2>ACCOUNT LOGIN</h2>
               </div>
-              <div className="ms-5" style={{ width: "50%", marginLeft: "12%" }}>
+              {/* <div className="ms-5" style={{ width: "50%", marginLeft: "12%" }}>
                 <label>Select Role</label>
                 <select
                   className="form-select form-select-sm"
@@ -109,7 +109,7 @@ export default function Login(props) {
                   <option value="user">User</option>
                   <option value="collector">Collector</option>
                 </select>
-              </div>
+              </div> */}
               <div
                 className="wrap-input100 validate-input"
                 data-validate="Enter username"
