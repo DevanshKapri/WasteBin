@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function CollectorSchedule() {
+  const [collectorsSchedule, setCollectorsSchedule] = useState([
+    { name: "abcd", date: "2023-03-29" },
+    { name: "wxyz", date: "2022-03-29" },
+    { name: "efgh", date: "2021-03-29" },
+    { name: "ijkl", date: "2020-03-29" },
+    { name: "mnop", date: "2019-03-29" },
+  ]);
   return (
     <div>
       <table
@@ -16,31 +23,13 @@ export default function CollectorSchedule() {
         </thead>
 
         <tbody id="tableBody">
-          <tr>
-            <td>1</td>
-            <td>abcd</td>
-            <td>2012-09-31</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>abcd</td>
-            <td>2013-09-31</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>abcd</td>
-            <td>2014-09-31</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>abcd</td>
-            <td>2015-09-31</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>abcd</td>
-            <td>2016-09-31</td>
-          </tr>
+          {collectorsSchedule.map((schedule, index) => (
+            <tr>
+              <td>{index + 1}</td>
+              <td>{schedule.name}</td>
+              <td>{schedule.date}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
