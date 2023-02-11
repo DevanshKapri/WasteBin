@@ -29,6 +29,8 @@ import { DonorForm } from './comp/Form';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cal_comp_pick from '../../Components/calendar/Cal_comp_pick';
+import CollectorSchedule from '../Dashboard/CollectorSchedule';
+import CollectorResponse from '../Dashboard/UserDistance';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -233,11 +235,11 @@ const Dashboard_collector = () => {
           <Chart />
         </div>
 
-        <div className="table">
-          <Table_comp />
-        </div>
+        
 
-            <Cal_comp_pick/>
+        <Cal_comp_pick />
+
+        <CollectorSchedule />
       </Box>
     </Box >
   );

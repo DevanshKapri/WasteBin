@@ -27,7 +27,8 @@ import Table from './comp/Table_comp';
 import Table_comp from './comp/Table_comp';
 import { DonorForm } from './comp/Form';
 import { useEffect } from 'react';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import CollectorSchedule from '../Dashboard/CollectorSchedule';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -103,10 +104,10 @@ const Dashboard_admin = () => {
     if (token) {
     }
     else
-        navigate('/');
-    if(User.role === 'collector' && User.status === 'unverified')
-        navigate('/');
-  },[])
+      navigate('/');
+    if (User.role === 'collector' && User.status === 'unverified')
+      navigate('/');
+  }, [])
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -232,9 +233,7 @@ const Dashboard_admin = () => {
           <Chart />
         </div>
 
-        <div className="table">
-          <Table_comp />
-        </div>
+        <CollectorSchedule />
 
         <div className="Form" >
           <DonorForm />
