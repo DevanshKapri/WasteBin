@@ -26,7 +26,8 @@ import PieChart from './comp/PieChart';
 import Table from './comp/Table_comp';
 import Table_comp from './comp/Table_comp';
 import { DonorForm } from './comp/Form';
-
+import { useEffect } from 'react';
+import {useNavigate} from 'react-router-dom';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -95,6 +96,18 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const User = JSON.parse(localStorage.getItem('user'));
+    if (token) {
+    }
+    else
+        navigate('/');
+    if(User.role === 'collector' && User.status === 'unverified')
+        navigate('/');
+  },[])
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 

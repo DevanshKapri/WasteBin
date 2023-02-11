@@ -7,7 +7,9 @@ import "./vendor/register/datepicker/daterangepicker.css";
 import "./css/register/main.css";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
+import {useNavigate} from 'react-router-dom'
 export default function Register() {
+  const navigate = useNavigate();
   const [state, setState] = useState({
     name: "",
     email: "",
@@ -44,6 +46,7 @@ export default function Register() {
         console.log(response);
         localStorage.setItem("user", JSON.stringify(response.data));
         setUser(response.data);
+        navigate('/dashboard')
       })
       .catch((error) => {
         console.log(error);

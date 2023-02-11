@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import GoogleButton from "react-google-button";
 import "./vendor/login/bootstrap/css/bootstrap.min.css";
@@ -16,6 +16,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import {auth } from '../../firebase';
 
 export default function Login(props) {
+  const navigate = useNavigate
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -38,6 +39,7 @@ export default function Login(props) {
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
         setUser(response.data)
+        navigate('/dashboard')
         console.log(response.data);
       })
       .catch((error) => {
