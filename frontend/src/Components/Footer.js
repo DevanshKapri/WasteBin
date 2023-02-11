@@ -18,18 +18,18 @@ const Footer = () => {
       </div>
       <div className="footer-section-two">
         <div className="footer-section-columns">
-          <span>Qualtiy</span>
+          <span>Home</span>
+          <span>About</span>
           <span>Help</span>
-          <span>Share</span>
-          <span>Carrers</span>
-          <span>Testimonials</span>
-          <span>Work</span>
+          <span>Careers</span>
+          {/* <span>Testimonials</span> */}
+          {/* <span>Work</span> */}
         </div>
         <div className="footer-section-columns">
           <span>244-5333-7783</span>
-          <span>hello@food.com</span>
-          <span>press@food.com</span>
-          <span>contact@food.com</span>
+          <span>hello@wastebin.com</span>
+          <span>press@wastebin.com</span>
+          <span>contact@wastebin.com</span>
         </div>
         <div className="footer-section-columns">
           <span>Terms & Conditions</span>

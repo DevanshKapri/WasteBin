@@ -1,34 +1,36 @@
 import React from "react";
-import PickMeals from "../Assets/pick-meals-image.png";
-import ChooseMeals from "../Assets/choose-image.png";
-import DeliveryMeals from "../Assets/delivery-image.png";
+import PickMeals from "../Assets/recycle.png";
+import ChooseMeals from "../Assets/seggregation.png";
+import DeliveryMeals from "../Assets/collection.png";
 
 const Work = () => {
   const workInfoData = [
     {
       image: PickMeals,
-      title: "Pick Meals",
-      text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et sagittis duis elementum interdum facilisi bibendum.",
+      title: "Recycle More, Landfill Less",
+      text: "Get incentives to help protect the environment with increased recycling and composting efforts.",
     },
     {
       image: ChooseMeals,
-      title: "Choose How Often",
-      text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et ",
+      title: "Waste Collection, Elevated",
+      text: "Save time and resources with optimized collection thanks to our predictive algorithms.",
     },
     {
       image: DeliveryMeals,
-      title: "Fast Deliveries",
-      text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et lorem ipsum",
+      title: "Segregation Simplified",
+      text: "Effortlessly separate waste for better disposal and increased recycling.",
     },
   ];
   return (
     <div className="work-section-wrapper">
       <div className="work-section-top">
-        <p className="primary-subheading">Services</p>
-        <h1 className="primary-heading">Our Services</h1>
+        <p className="primary-subheading">What we offer?</p>
+        <h1 className="primary-heading" style={{ fontSize: "2em" }}>
+          Benefits of Our Waste Management Solution
+        </h1>
         <p className="primary-text">
-          Lorem ipsum dolor sit amet consectetur. Non tincidunt magna non et
-          elit. Dolor turpis molestie dui magnis facilisis at fringilla quam.
+          A Solution That Does More: Upgrade to a smarter, more efficient, and
+          sustainable waste management solution.
         </p>
       </div>
       <div className="work-section-bottom">

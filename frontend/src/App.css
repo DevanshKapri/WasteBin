@@ -70,13 +70,15 @@ nav {
   position: relative;
   display: flex;
   padding-top: 3rem;
+  margin-top: 4rem;
 }
 .home-bannerImage-container {
   position: absolute;
-  top: -100px;
+  top: -280px;
   right: -170px;
   z-index: -2;
   max-width: 700px;
+  max-height: 50vh;
 }
 .home-image-section {
   max-width: 600px;
@@ -97,7 +99,7 @@ nav {
   max-width: 600px;
 }
 .primary-text {
-  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-size: clamp(1rem, 2vw, 1.1rem);
   max-width: 500px;
   color: #6a6a6a;
   margin: 1.5rem 0rem;
@@ -125,7 +127,7 @@ nav {
   background-color: #0267c1;
 }
 .about-section-container {
-  margin-top: 20rem;
+  margin-top: 15rem;
   position: relative;
   display: flex;
   align-items: center;
@@ -145,14 +147,16 @@ nav {
   justify-content: center;
   display: flex;
   flex-direction: column;
+  margin-left: 4em;
+  padding: 4rem;
 }
 .primary-subheading {
   font-weight: 700;
-  color: #fe9e0d;
+  color: #7c90db;
   font-size: 1.15rem;
 }
 .about-buttons-container {
-  margin-top: 2rem;
+  margin-top: 0.5rem;
   display: flex;
 }
 .watch-video-button {
@@ -206,6 +210,7 @@ nav {
   margin: 6rem 0rem;
   display: flex;
   margin-top: 10rem;
+  padding-bottom: 20px;
 }
 .footer-logo-container {
   max-width: 110px;
@@ -268,7 +273,7 @@ nav {
   margin-top: 1.5rem;
 }
 .work-section-wrapper {
-  margin-top: 15rem;
+  margin-top: 5rem;
 }
 .work-section-top p {
   text-align: center;
@@ -301,7 +306,7 @@ nav {
   margin: 1rem 0rem;
 }
 .work-section-bottom {
-  margin-top: 5rem;
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -320,7 +325,8 @@ nav {
     font-size: 1rem;
   }
   .primary-button {
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
   }
   .home-bannerImage-container {
     max-width: 600px;
@@ -369,7 +375,7 @@ nav {
   }
   .secondary-button {
     font-size: 1rem;
-    padding: 0.8rem 2rem;
+    padding: 0.8rem 1rem;
     cursor: pointer;
   }
   .about-section-container {

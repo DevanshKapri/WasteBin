@@ -7,9 +7,9 @@ import Waste_about from "../Assets/waste_about.jpg";
 const About = () => {
   return (
     <div className="about-section-container">
-      <div className="about-background-image-container">
+      {/* <div className="about-background-image-container">
         <img src={AboutBackground} alt="" />
-      </div>
+      </div> */}
       <div className="about-section-image-container">
         <img src={Waste_about} alt="" />
       </div>
@@ -19,15 +19,15 @@ const About = () => {
       >
         <p className="primary-subheading">About</p>
         <h1 className="primary-heading">
-          Food Is An Important Part Of A Balanced Diet
+          A <span style={{ color: "#0075c4" }}>Smarter Way</span> to<br></br>{" "}
+          Manage your Waste
         </h1>
         <p className="primary-text">
-          Lorem ipsum dolor sit amet consectetur. Non tincidunt magna non et
-          elit. Dolor turpis molestie dui magnis facilisis at fringilla quam.
-        </p>
-        <p className="primary-text">
-          Non tincidunt magna non et elit. Dolor turpis molestie dui magnis
-          facilisis at fringilla quam.
+          Upgrade to a smarter and more sustainable waste management solution
+          with our advanced technology. Real-time tracking and reporting help
+          you make data-driven decisions and reduce waste sent to landfills. Say
+          goodbye to traditional waste management methods and join the
+          revolution today.
         </p>
         <div className="about-buttons-container">
           <button className="secondary-button"> Know More</button>
