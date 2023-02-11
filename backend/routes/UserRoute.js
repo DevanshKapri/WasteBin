@@ -5,10 +5,10 @@ const Request = require('../models/RequestModel');
 
 router.post('/register', async(req, res) => {
     const data = req.body
-
     const user = await User.findOne({ email : data.email})
 
     if(user) {
+        console.log('User already exists')
         return res.status(400).json({ error : 'User already exists'})
     }
     else {
@@ -21,6 +21,7 @@ router.post('/register', async(req, res) => {
         })
         await user.save()
                 .then((user) => {
+                    console.log(user)
                     return res.status(200).json(user)
                 })
                 .catch((err) => {

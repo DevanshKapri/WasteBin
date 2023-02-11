@@ -5,6 +5,8 @@ import "./vendor/register/font-awesome-4.7/css/font-awesome.min.css";
 import "./vendor/register/select2/select2.min.css";
 import "./vendor/register/datepicker/daterangepicker.css";
 import "./css/register/main.css";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 export default function Register() {
   const [state, setState] = useState({
     name: "",
@@ -14,8 +16,11 @@ export default function Register() {
     confirmpassword: "",
   });
   const [role, setRole] = useState("User");
-
-  const handleRoleChange = (event: SelectChangeEvent) => {
+  const [token, setToken] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [user, setUser] = useState(null);
+  const handleRoleChange = (event) => {
+    console.log(event.target.value);
     setRole(event.target.value);
   };
   const handleChange = (e) => {
@@ -24,24 +29,53 @@ export default function Register() {
       ...state,
       ...{ [e.target.name]: e.target.value },
     }));
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
     // console.log(state);
-    axios
-      .post(
-        "http://localhost:" + (process.env.PORT || 8000) + "/register",
-        state
-      )
-      .then((res) => {
-        if (res.data) {
-          alert(res.data);
-        } else {
-          e.target.submit();
-        }
+  };
+
+  const submitMongo = async () => {
+    await axios
+      .post("http://localhost:8000/register", {
+        name: state.name,
+        email: state.email,
+        number: state.phone,
+        role: role,
       })
-      .catch((err) => {
-        console.log(err);
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("user", JSON.stringify(response.data));
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        setErrorMessage(error);
+      });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log("entered handleSubmit");
+   await createUserWithEmailAndPassword(auth, state.email, state.password)
+      .then((userCredential) => {
+        setToken(userCredential.user.accessToken);
+        setErrorMessage("User signed successfully");
+        localStorage.setItem(
+          "token",
+          JSON.stringify(userCredential.user.accessToken)
+        );
+        localStorage.setItem("role", JSON.stringify(role));
+        // console.log(info)
+
+        submitMongo();
+      })
+      .catch((error) => {
+        // const errorCode = error.code;
+        // console.log(errorCode);
+        // console.log(error.message)
+        const errorMessage = error.message;
+        setErrorMessage(errorMessage);
+
+        console.log(error);
       });
   };
   return (
@@ -51,13 +85,14 @@ export default function Register() {
           <div class="card card-4">
             <div class="card-body">
               <h2 class="title">Registration Form</h2>
-              <form action="/login" onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit}>
                 <div class="row row-space">
                   <div class="col-12 mb-3">
                     <label>Select Role</label>
                     <select
                       class="form-select form-select-sm"
                       aria-label=".form-select-sm example"
+                      onChange={handleRoleChange}
                     >
                       <option value="user">User</option>
                       <option value="collector">Collector</option>
@@ -137,6 +172,9 @@ export default function Register() {
                     </div>
                   </div>
                 </div>
+                {errorMessage && (
+                  <div> {errorMessage}</div> 
+                )}
                 <div class="p-t-15">
                   <button class="btn btn--radius-2 btn--blue" type="submit">
                     Sign Up
