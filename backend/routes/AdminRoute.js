@@ -19,6 +19,7 @@ router.post('/verifyCollector', async (req, res) => {
     const data = req.body
     const user = await User.findOne({ email: data.email })
     const col = await User.findOne({ role: 'collector' })
+    console.log(user)
     if (user && user.role === 'admin') {
         const collector = await User.findOne({ _id: data.collectorId })
         if (collector) {
@@ -28,6 +29,40 @@ router.post('/verifyCollector', async (req, res) => {
                     for (let i = 0; i < col.length; i++) {
                         if (col[i].status === 'unverified') {
                             col[i].status = 'verified'
+                        }
+                    }
+                    return col;
+                })
+                .then((col) => {
+                    return res.status(200).json(col)
+                })
+                .catch((err) => {
+                    console.log(err)
+                    return res.status(500).json(err)
+                })
+        }
+        else {
+            return res.status(400).json({ error: 'Collector does not exist' })
+        }
+    }
+    else {
+        return res.status(400).json({ error: 'User does not exist or is not an admin' })
+    }
+})
+router.post('/rejectCollector', async (req, res) => {
+    const data = req.body
+    const user = await User.findOne({ email: data.email })
+    const col = await User.findOne({ role: 'collector' })
+    console.log(user)
+    if (user && user.role === 'admin') {
+        const collector = await User.findOne({ _id: data.collectorId })
+        if (collector) {
+            collector.status = 'rejected'
+            await collector.save()
+                .then((collector) => {
+                    for (let i = 0; i < col.length; i++) {
+                        if (col[i].status === 'rejected') {
+                            col[i].status = 'rejected'
                         }
                     }
                     return col;
