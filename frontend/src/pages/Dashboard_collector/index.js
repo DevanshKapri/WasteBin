@@ -1,114 +1,114 @@
-import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import { Grid, Paper } from '@mui/material';
-import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
-import Grid_comp from './comp/Grid_comp';
-import Chart from './comp/Chart';
-import PieChart from './comp/PieChart';
-import Table from './comp/Table_comp';
-import Table_comp from './comp/Table_comp';
-import { DonorForm } from './comp/Form';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Cal_comp_pick from '../../Components/calendar/Cal_comp_pick';
-import CollectorSchedule from '../Dashboard/CollectorSchedule';
-import CollectorResponse from '../Dashboard/UserDistance';
-import UserDistance from '../Dashboard/UserDistance';
-import axios from 'axios';
-import {useState} from 'react';
-import haversine from 'haversine'
+import * as React from "react";
+import { styled, useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import MuiDrawer from "@mui/material/Drawer";
+import MuiAppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
+import CssBaseline from "@mui/material/CssBaseline";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+import { Grid, Paper } from "@mui/material";
+import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
+import Grid_comp from "./comp/Grid_comp";
+import Chart from "./comp/Chart";
+import PieChart from "./comp/PieChart";
+import Table from "./comp/Table_comp";
+import Table_comp from "./comp/Table_comp";
+import { DonorForm } from "./comp/Form";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Cal_comp_pick from "../../Components/calendar/Cal_comp_pick";
+import CollectorSchedule from "../Dashboard/CollectorSchedule";
+import CollectorResponse from "../Dashboard/UserDistance";
+import UserDistance from "./UserDistance";
+import axios from "axios";
+import { useState } from "react";
+import haversine from "haversine";
 
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
-  transition: theme.transitions.create('width', {
+  transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
-  overflowX: 'hidden',
+  overflowX: "hidden",
 });
 
 const closedMixin = (theme) => ({
-  transition: theme.transitions.create('width', {
+  transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  overflowX: 'hidden',
+  overflowX: "hidden",
   width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
+  [theme.breakpoints.up("sm")]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
   },
 });
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
+  shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
+  transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
+    transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    boxSizing: 'border-box',
-    ...(open && {
-      ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
-    }),
-    ...(!open && {
-      ...closedMixin(theme),
-      '& .MuiDrawer-paper': closedMixin(theme),
-    }),
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && {
+    ...openedMixin(theme),
+    "& .MuiDrawer-paper": openedMixin(theme),
   }),
-);
+  ...(!open && {
+    ...closedMixin(theme),
+    "& .MuiDrawer-paper": closedMixin(theme),
+  }),
+}));
 
 const Dashboard_collector = () => {
   const navigate = useNavigate();
   const [requests, setRequests] = React.useState([]);
   const [user, setUser] = React.useState([]);
-  const [longitude, setlongitude] = useState(0)
-  const [latitude, setlatitude] = useState(0)
+  const [longitude, setlongitude] = useState(0);
+  const [latitude, setlatitude] = useState(0);
   const getRequests = async () => {
     await axios
       .get("http://localhost:8000/getRequests")
@@ -120,11 +120,15 @@ const Dashboard_collector = () => {
         const data = res.filter((item) => item.status === "pending");
         return data;
       })
-      .then ((res) => {
-        for(let i=0; i<res.length; i++){
-          const dist = haversine({latitude: latitude, longitude: longitude}, {latitude: res[i].latitude, longitude: res[i].longitude}, {unit: 'meter'})
-          res[i].distance = dist
-          console.log(dist)
+      .then((res) => {
+        for (let i = 0; i < res.length; i++) {
+          const dist = haversine(
+            { latitude: latitude, longitude: longitude },
+            { latitude: res[i].latitude, longitude: res[i].longitude },
+            { unit: "meter" }
+          );
+          res[i].distance = dist;
+          console.log(dist);
         }
         return res;
       })
@@ -140,25 +144,24 @@ const Dashboard_collector = () => {
 
   const locationfinder = () => {
     navigator.geolocation.getCurrentPosition(function (position) {
-        console.log("Latitude is :", position.coords.latitude);
-        setlatitude(position.coords.latitude)
-        console.log("Longitude is :", position.coords.longitude);
-        setlongitude(position.coords.longitude)
-
+      console.log("Latitude is :", position.coords.latitude);
+      setlatitude(position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
+      setlongitude(position.coords.longitude);
     });
-}
+  };
 
   useEffect(() => {
-    locationfinder()
-    const token = JSON.parse(localStorage.getItem('token'));
-    const User = JSON.parse(localStorage.getItem('user'));
-    if (token && User.role === 'collector' && User.status === 'verified') {
+    locationfinder();
+    const token = JSON.parse(localStorage.getItem("token"));
+    const User = JSON.parse(localStorage.getItem("user"));
+    if (token && User.role === "collector" && User.status === "verified") {
       setUser(User);
     }
     getRequests();
     // else
     //   navigate('/');
-  }, [])
+  }, []);
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -172,7 +175,7 @@ const Dashboard_collector = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -183,7 +186,7 @@ const Dashboard_collector = () => {
             edge="start"
             sx={{
               marginRight: 5,
-              ...(open && { display: 'none' }),
+              ...(open && { display: "none" }),
             }}
           >
             <MenuIcon />
@@ -196,7 +199,11 @@ const Dashboard_collector = () => {
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            {theme.direction === "rtl" ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -204,15 +211,15 @@ const Dashboard_collector = () => {
           <ListItemButton
             sx={{
               minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
+              justifyContent: open ? "initial" : "center",
               px: 2.5,
             }}
           >
             <ListItemIcon
               sx={{
                 minWidth: 0,
-                mr: open ? 3 : 'auto',
-                justifyContent: 'center',
+                mr: open ? 3 : "auto",
+                justifyContent: "center",
               }}
             >
               <InboxIcon />
@@ -222,15 +229,15 @@ const Dashboard_collector = () => {
           <ListItemButton
             sx={{
               minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
+              justifyContent: open ? "initial" : "center",
               px: 2.5,
             }}
           >
             <ListItemIcon
               sx={{
                 minWidth: 0,
-                mr: open ? 3 : 'auto',
-                justifyContent: 'center',
+                mr: open ? 3 : "auto",
+                justifyContent: "center",
               }}
             >
               <InboxIcon />
@@ -240,15 +247,15 @@ const Dashboard_collector = () => {
           <ListItemButton
             sx={{
               minHeight: 48,
-              justifyContent: open ? 'initial' : 'center',
+              justifyContent: open ? "initial" : "center",
               px: 2.5,
             }}
           >
             <ListItemIcon
               sx={{
                 minWidth: 0,
-                mr: open ? 3 : 'auto',
-                justifyContent: 'center',
+                mr: open ? 3 : "auto",
+                justifyContent: "center",
               }}
             >
               <InboxIcon />
@@ -265,22 +272,27 @@ const Dashboard_collector = () => {
           <Grid_comp />
         </Grid>
 
-        <div style={{ display: "flex", padding: "5px 20px", gap: "20px", marignTop: "8rem" }}>
-           <PieChart /> 
+        <div
+          style={{
+            display: "flex",
+            padding: "5px 20px",
+            gap: "20px",
+            marignTop: "8rem",
+          }}
+        >
+          <PieChart />
           <Chart />
         </div>
 
-
-        <div className="calendar" style={{marginTop: "10rem"}}>
+        <div className="calendar" style={{ marginTop: "10rem" }}>
           <Cal_comp_pick />
         </div>
 
-
         {/* <CollectorSchedule /> */}
-        <UserDistance data = {requests}/>
+        <UserDistance data={requests} />
       </Box>
-    </Box >
+    </Box>
   );
-}
+};
 
 export default Dashboard_collector;
