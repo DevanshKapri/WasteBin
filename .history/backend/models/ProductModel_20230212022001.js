@@ -19,10 +19,6 @@ const ProductSchema = new Schema({
         required: true
     },
 
-    imgurl: {
-        type: String,
-        required: true
-    }
 })
 
 module.exports = Product = mongoose.model('product', ProductSchema)

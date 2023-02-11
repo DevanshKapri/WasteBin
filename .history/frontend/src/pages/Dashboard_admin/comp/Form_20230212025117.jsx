@@ -104,7 +104,7 @@ export const DonorForm = () => {
             quantity: quantity,
             description: desc,
             imgurl: imgurl,
-            email: User.email
+            email: U
         }).then((response) => {
             console.log(response.data);
 
@@ -112,9 +112,6 @@ export const DonorForm = () => {
             .catch((err) => {
                 console.log(err)
             })
-
-
-
 
     }
 

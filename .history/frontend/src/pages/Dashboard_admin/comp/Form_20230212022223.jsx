@@ -28,23 +28,49 @@ import { useNavigate } from 'react-router-dom';
 
 
 export const DonorForm = () => {
+    const [tableactive, settable] = React.useState('hide');
+    const [donorNo, setdonorNo] = React.useState(0)
     const [User, setUser] = React.useState(null);
     const navigate = useNavigate()
 
     const [file, setFile] = useState("");
     const [imgurl, setimgurl] = useState('');
+    const [longitude, setlongitude] = useState(0)
+    const [latitude, setlatitude] = useState(0)
     const [title, setTitle] = useState('');
+    const [type, settype] = useState("Other");
     const [desc, setDesc] = useState('');
-    const [quantity, setQuantity] = useState(0)
-    const [price, setPrice] = useState(0)
+    const [quantity , setQuantity] = useState(0)
+    const [price , setPrice] = useState(0)
 
+
+
+    //   console.log(imgurl)
+
+
+
+
+
+    // progress
+    const [percent, setPercent] = useState(0);
 
     // Handle file upload event and update state
     function handleChange(event) {
         console.log(event)
         setFile(event.target.files[0]);
     }
+    const locationfinder = () => {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            console.log("Latitude is :", position.coords.latitude);
+            setlatitude(position.coords.latitude)
+            console.log("Longitude is :", position.coords.longitude);
+            setlongitude(position.coords.longitude)
 
+        });
+    }
+    // const handlesubmit = () => {
+
+    // }
 
 
     const handleUpload = () => {
@@ -68,7 +94,7 @@ export const DonorForm = () => {
                 );
 
                 // update progress
-
+                setPercent(percent);
                 console.log("uploaded")
             },
             (err) => console.log(err.message),
@@ -81,8 +107,8 @@ export const DonorForm = () => {
             }
         );
     }
-
     useEffect(() => {
+        locationfinder()
         const user = JSON.parse(localStorage.getItem('user'))
         if (user) {
             console.log(user)
@@ -92,29 +118,26 @@ export const DonorForm = () => {
             navigate('/')
     }, [])
 
-
     const handlesubmit = async (e) => {
         e.preventDefault()
 
         console.log(User)
 
-        await axios.post('http://localhost:8000/addcredit', {
+        await axios.post('http://localhost:8000/addrequest', {
             name: title,
             price: price,
-            quantity: quantity,
-            description: desc,
-            imgurl: imgurl,
-            email: User.email
-        }).then((response) => {
-            console.log(response.data);
-
+            quantity: quantity ,
+            description: desc ,
+            imgurl: imgurl
+            // message
         })
+            .then((response) => {
+                console.log(response.data);
+
+            })
             .catch((err) => {
                 console.log(err)
             })
-
-
-
 
     }
 
@@ -165,7 +188,7 @@ export const DonorForm = () => {
 
                     </div>
                     <br />
-
+                    
                     <button type="submit" className="btn btn-primary" onClick={handlesubmit}>Submit</button>
                 </div>
 

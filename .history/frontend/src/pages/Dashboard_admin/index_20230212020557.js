@@ -219,15 +219,11 @@ const Dashboard_admin = () => {
           <Chart />
         </div>
 
-        <div className="Form" style={{ position: "relative", top: "8rem" }}>
-          <h2 style={{ position: "relative", top: "-1rem" }}>Enter Details of the product</h2>
+        <div className="Form" style={{ position: "relative", top: "3rem" }}>
           <DonorForm />
         </div>
 
-        <div className="schedule" style={{marginTop: "7rem"}}>
-          <CollectorSchedule />
-        </div>
-
+        {/* <CollectorSchedule /> 
       </Box>
     </Box >
   );

@@ -107,6 +107,11 @@ export const DonorForm = () => {
             email: User.email
         }).then((response) => {
             console.log(response.data);
+            setPrice(0)
+            setTitle('')
+            setQuantity(0)
+            setDesc('')
+            setimgurl('')
 
         })
             .catch((err) => {

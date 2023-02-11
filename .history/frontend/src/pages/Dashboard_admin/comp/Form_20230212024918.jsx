@@ -83,6 +83,7 @@ export const DonorForm = () => {
     }
 
     useEffect(() => {
+        locationfinder()
         const user = JSON.parse(localStorage.getItem('user'))
         if (user) {
             console.log(user)
@@ -104,7 +105,6 @@ export const DonorForm = () => {
             quantity: quantity,
             description: desc,
             imgurl: imgurl,
-            email: User.email
         }).then((response) => {
             console.log(response.data);
 
@@ -112,9 +112,6 @@ export const DonorForm = () => {
             .catch((err) => {
                 console.log(err)
             })
-
-
-
 
     }
 

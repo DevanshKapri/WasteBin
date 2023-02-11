@@ -220,14 +220,13 @@ const Dashboard_admin = () => {
         </div>
 
         <div className="Form" style={{ position: "relative", top: "8rem" }}>
-          <h2 style={{ position: "relative", top: "-1rem" }}>Enter Details of the product</h2>
+          <h2 style={{ position: "relative", top: "-1rem" }}>Enter Deatails of the product</h2>
           <DonorForm />
         </div>
 
-        <div className="schedule" style={{marginTop: "7rem"}}>
-          <CollectorSchedule />
+        <div className="schedule">
+          {/* <CollectorSchedule /> */}
         </div>
-
       </Box>
     </Box >
   );

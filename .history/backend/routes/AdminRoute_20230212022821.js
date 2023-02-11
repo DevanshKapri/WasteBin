@@ -52,7 +52,7 @@ router.post('/verifyCollector', async (req, res) => {
 router.post('/addCredit', async (req, res) => {
     const data = req.body
 
-    const user = await User.findOne({ email: data.email })
+    const user = await user.findOne({ email: data.email })
     if (user && user.role === 'admin') {
         const product = new Product({
             name: data.name,
