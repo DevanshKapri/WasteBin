@@ -215,6 +215,12 @@ const Dashboard = () => {
               justifyContent: open ? 'initial' : 'center',
               px: 2.5,
             }}
+            onClick= {() => {
+              localStorage.removeItem('token');
+              localStorage.removeItem('user');
+              navigate('/');
+              console.log('logout');
+            }}
           >
             <ListItemIcon
               sx={{

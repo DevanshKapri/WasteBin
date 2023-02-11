@@ -108,7 +108,7 @@ export default function Register() {
                       <label class="label" for="name">
                         Name
                       </label>
-                      <input
+                      <input style ={{ lineHieght : "25px" }}  
                         class="input--style-4"
                         type="text"
                         name="name"
@@ -123,7 +123,7 @@ export default function Register() {
                       <label class="label" for="email">
                         Email
                       </label>
-                      <input
+                      <input style ={{lineHieght : "25px"}}  
                         class="input--style-4"
                         type="text"
                         name="email"
@@ -138,7 +138,7 @@ export default function Register() {
                       <label class="label" for="phone">
                         Phone number
                       </label>
-                      <input
+                      <input style ={{lineHieght : '25px'}}  
                         class="input--style-4"
                         type="text"
                         name="phone"
@@ -153,7 +153,7 @@ export default function Register() {
                       <label class="label" for="password">
                         Password
                       </label>
-                      <input
+                      <input style ={{lineHieght : "25px"}}  
                         class="input--style-4"
                         type="password"
                         name="password"
@@ -166,7 +166,7 @@ export default function Register() {
                       <label class="label" for="confirmpassword">
                         Confirm Password
                       </label>
-                      <input
+                      <input style ={{lineHieght : "25px"}}  
                         class="input--style-4"
                         type="password"
                         name="confirmpassword"

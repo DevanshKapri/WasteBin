@@ -184,7 +184,7 @@ h6 {
 }
 
 .bg-red {
-  background: #fa4251;
+  /* background: #fa4251; */
 }
 
 .bg-gra-01 {
@@ -202,17 +202,15 @@ h6 {
 }
 
 .bg-gra-02 {
-  background: -webkit-gradient(
-    linear,
-    left bottom,
-    right top,
-    from(#fc2c77),
-    to(#6c4079)
-  );
-  background: -webkit-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
+  background-color : #4272D7;  
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: -webkit-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
   background: -moz-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
   background: -o-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
-  background: linear-gradient(to top right, #fc2c77 0%, #6c4079 100%);
+  background: linear-gradient(to top right, #fc2c77 0%, #6c4079 100%); */
 }
 
 /* ==========================================================================
@@ -332,7 +330,7 @@ td.active {
 }
 
 input[type="date" i] {
-  padding: 14px;
+  padding: 10px;
 }
 
 .table-condensed td,
@@ -392,7 +390,7 @@ input {
 }
 
 .input--style-4 {
-  line-height: 50px;
+  line-height: 30px;
   background: #fafafa;
   -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
   -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
@@ -400,7 +398,7 @@ input {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  padding: 0 20px;
+  padding: 5px 20px;
   font-size: 16px;
   color: #666;
   -webkit-transition: all 0.4s ease;
@@ -516,6 +514,7 @@ input {
 .input-group {
   position: relative;
   margin-bottom: 22px;
+  flex-direction: column;
 }
 
 .input-group-icon {
@@ -652,10 +651,10 @@ input {
    #TITLE
    ========================================================================== */
 .title {
-  font-size: 24px;
+  font-size: 40px;
   color: #525252;
-  font-weight: 400;
-  margin-bottom: 40px;
+  font-weight: 900;
+  margin-bottom: 60px;
 }
 
 /* ==========================================================================
@@ -666,6 +665,10 @@ input {
   -moz-border-radius: 3px;
   border-radius: 3px;
   background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
 }
 
 .card-4 {
