@@ -20,8 +20,7 @@ const ProductSchema = new Schema({
     },
 
     imgurl: {
-        type: String,
-        required: true
+        
     }
 })
 

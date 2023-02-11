@@ -113,8 +113,8 @@ export const DonorForm = () => {
                 console.log(err)
             })
 
-
-
+            setPrice(0)
+            setTitle('')
 
     }
 

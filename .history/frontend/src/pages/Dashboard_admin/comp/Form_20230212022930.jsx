@@ -38,13 +38,12 @@ export const DonorForm = () => {
     const [quantity, setQuantity] = useState(0)
     const [price, setPrice] = useState(0)
 
-
     // Handle file upload event and update state
     function handleChange(event) {
         console.log(event)
         setFile(event.target.files[0]);
     }
-
+    
 
 
     const handleUpload = () => {
@@ -68,7 +67,7 @@ export const DonorForm = () => {
                 );
 
                 // update progress
-
+                
                 console.log("uploaded")
             },
             (err) => console.log(err.message),
@@ -81,17 +80,7 @@ export const DonorForm = () => {
             }
         );
     }
-
-    useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('user'))
-        if (user) {
-            console.log(user)
-            setUser(user)
-        }
-        else
-            navigate('/')
-    }, [])
-
+   
 
     const handlesubmit = async (e) => {
         e.preventDefault()
@@ -103,18 +92,14 @@ export const DonorForm = () => {
             price: price,
             quantity: quantity,
             description: desc,
-            imgurl: imgurl,
-            email: User.email
+            imgurl: imgurl
         }).then((response) => {
-            console.log(response.data);
+                console.log(response.data);
 
-        })
+            })
             .catch((err) => {
                 console.log(err)
             })
-
-
-
 
     }
 

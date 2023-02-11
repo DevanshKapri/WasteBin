@@ -47,8 +47,6 @@ export const DonorForm = () => {
     const [open, setOpen] = useState(false)
     const [wasteType, setwasteType] = useState('')
 
-    
-
 
 
       console.log(wasteType)

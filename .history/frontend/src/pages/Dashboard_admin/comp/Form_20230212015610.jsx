@@ -10,7 +10,6 @@ import {
     uploadBytesResumable, getDownloadURL
 } from "firebase/storage";
 import { useNavigate } from 'react-router-dom';
-import Modal_prop from '../../../Components/Modal_prop';
 
 
 
@@ -29,7 +28,6 @@ import Modal_prop from '../../../Components/Modal_prop';
 
 
 export const DonorForm = () => {
-
     const [tableactive, settable] = React.useState('hide');
     const [donorNo, setdonorNo] = React.useState(0)
     const [User, setUser] = React.useState(null);
@@ -44,14 +42,10 @@ export const DonorForm = () => {
     const [type, settype] = useState("Other");
     const [address, setaddress] = useState('');
 
-    const [open, setOpen] = useState(false)
-    const [wasteType, setwasteType] = useState('')
-
-    
 
 
+    //   console.log(imgurl)
 
-      console.log(wasteType)
 
 
 
@@ -79,8 +73,6 @@ export const DonorForm = () => {
 
 
     const handleUpload = () => {
-
-        setOpen(!open)
         console.log(file)
         if (!file) {
             alert("Please upload an image first!");
@@ -117,7 +109,7 @@ export const DonorForm = () => {
     useEffect(() => {
         locationfinder()
         const user = JSON.parse(localStorage.getItem('user'))
-        if (user) {
+        if(user){
             console.log(user)
             setUser(user)
         }
@@ -129,25 +121,21 @@ export const DonorForm = () => {
         e.preventDefault()
 
         console.log(User)
-        if(!User){
-            navigate('/')
-        }
 
         await axios.post('http://localhost:8000/addrequest', {
-            email: User.email,
+            email : User.email,
             latitude,
             longitude,
-            photoUrl: imgurl,
-            message,
-            wasteType
+            photoUrl : imgurl,
+            message
         })
-            .then((response) => {
-                console.log(response.data);
+        .then((response) => {
+            console.log(response.data);
 
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 
     }
 
@@ -240,15 +228,6 @@ export const DonorForm = () => {
                             <br />
                             <br />
                             <button onClick={handleUpload}>Upload to Firebase</button>
-                            {/* <p>{percent} "% done"</p> */}
-
-
-                            {/* {imgurl && <>
-                                <br />
-                                <br />
-                                <img className='image-height' src={imgurl} alt="" />
-
-                            </>} */}
                         </div>
 
 
@@ -256,8 +235,6 @@ export const DonorForm = () => {
                     <br />
                     <button type="submit" className="btn btn-primary" onClick={handlesubmit}>Submit</button>
                 </div>
-
-                {open && <Modal_prop imgurl = {imgurl} setwasteType = {setwasteType}/>}
 
             </div>
             <div className="listContainer">
