@@ -238,7 +238,7 @@ const Dashboard = () => {
               justifyContent: open ? "initial" : "center",
               px: 2.5,
             }}
-            onClick= {() => {
+            onClick={() => {
               localStorage.removeItem('token');
               localStorage.removeItem('user');
               navigate('/');
@@ -261,11 +261,15 @@ const Dashboard = () => {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <Grid container spacing={6}>
-          <Grid_comp />
-          <Grid_comp />
-          <Grid_comp />
-          
-
+          <Grid_comp header="Congratulations , User!"
+            subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
+            button="Redeem Credits" />
+          <Grid_comp header="Congratulations , User!"
+            subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
+            button="Redeem Credits" />
+          <Grid_comp header="Congratulations , User!"
+            subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
+            button="Redeem Credits" />
           {/* <Grid item xs={3}>
             <Paper sx = {{height : '150px'}}>
               <Typography variant="h5" component="h3">Paper</Typography>
@@ -285,7 +289,7 @@ const Dashboard = () => {
           <Chart />
         </div>
 
-        <div className="Form" style={{ marignTop: "20rem" }}>
+        <div className="Form" style={{ position: "relative", top: "3rem" }}>
           <DonorForm />
           <div />
         </div>
