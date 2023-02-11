@@ -45,9 +45,8 @@ export default function CollectorResponse(props) {
     }));
     // console.log(state);
   };
-  let data = props.data;
-  data.sort((a, b) => (a.distance > b.distance ? 1 : 0));
-  const [requests, setRequests] = useState(data);
+  const requests = props.data;
+  const [rerender, setRerender] = useState(false);
   const [state, setState] = useState([]);
   return (
     <div class="container-fluid row" style={{ marginLeft: "60px" }}>
@@ -59,9 +58,9 @@ export default function CollectorResponse(props) {
           <div class="card-body" style={{ width: "100%" }}>
             {/* <h5 class="card-title" id="title ${index}"><b>${element.noteTitle}</b></h5> */}
             <p class="card-text">Username:{user.user}</p>
-            <p class="card-text">Request Date:{user.updatedBy}</p>
+            <p class="card-text">Request Date:{user.updatedAt}</p>
             <p class="card-text">Waste Type:{user.wasteType}</p>
-            <p class="card-text">Message:{user.messageg}</p>
+            <p class="card-text">Message:{user.message}</p>
             <p class="card-text">Distance:{user.distance}</p>
             <hr />
             <form>
@@ -75,9 +74,6 @@ export default function CollectorResponse(props) {
               />
               <button
                 onClick={(e) => {
-                  // console.log(
-                  //   `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}T${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`
-                  // );
                   let Datetime = "";
                   e.preventDefault();
                   for (const [key, value] of Object.entries(state)) {
@@ -88,9 +84,8 @@ export default function CollectorResponse(props) {
                   }
                   if (Datetime != "") {
                     console.log("Request approved by collector");
-                    setRequests(
-                      requests.filter((item) => item.user != user.user)
-                    );
+                    // requests.filter((item) => item.user != user.user);
+                    setRerender(true);
                   } else {
                     alert("Invalid date or time");
                   }
