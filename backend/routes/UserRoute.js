@@ -133,22 +133,22 @@ router.post('/acceptRequest', async(req, res) => {
 router.post('/completeRequest', async(req, res) => {
     const data = req.body
     const user = await User.findOne({ email : data.email})
-    let req = await Request.find();
+    let reqs = await Request.find();
     if(user && user.role === 'collector' && user.status === 'verified') {
         const request = await Request.findOne({ _id : data.requestId})
         if(request) {
             request.status = 'completed'
             await request.save()
                         .then((request) => {
-                            for(let i = 0; i < request.length; i++){
-                                if(req[i].collector === request._id){
-                                    req[i].status = 'completed'
+                            for(let i = 0; i < reqs.length; i++){
+                                if(reqs[i].collector === request._id){
+                                    reqs[i].status = 'completed'
                                 }
                             }
-                            return req;
+                            return reqs;
                         })
-                        .then((req) => {
-                            return res.status(200).json(req)
+                        .then((reqs) => {
+                            return res.status(200).json(reqs)
                         })
                         .catch((err) => {
                             console.log(err)

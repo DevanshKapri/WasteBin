@@ -29,7 +29,8 @@ import { DonorForm } from './comp/Form';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserRequests from './UserRequests';
-import UserDistance from './UserDistance';
+import axios from 'axios';
+// import UserDistance from './UserDistance';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -99,10 +100,28 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [requests, setRequests] = React.useState([]);
+  const [user, setUser] = React.useState([]);
+  const getRequests = async () => {
+    await axios.get('http://localhost:8000/getRequests')
+      .then(res => {
+        // console.log(res.data);
+        setRequests(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
     const User = JSON.parse(localStorage.getItem('user'));
-    if (token) {
+    if (token && User) {
+      setUser(User);
+      if(User.role === 'User')
+      {
+        getRequests();
+      }
     }
     else
       navigate('/');
@@ -110,6 +129,9 @@ const Dashboard = () => {
       navigate('/');
   }, [])
 
+
+  const data = requests.filter((item) => item.user === user._id);
+  console.log(data);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -238,8 +260,7 @@ const Dashboard = () => {
           <DonorForm />
           <div />
         </div>
-
-        <UserRequests />
+        <UserRequests data = {data}/>
         
 
       </Box>
