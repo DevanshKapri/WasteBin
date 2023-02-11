@@ -214,9 +214,9 @@ const Dashboard_admin = () => {
           <Grid_comp />
         </Grid>
 
-        <div style={{ display: "flex", padding: "10px 20px", gap: "20px", marignTop: "8rem" }}>
+        <div style={{ display: "flex", padding: "5px 20px", gap: "20px", marignTop: "8rem" }}>
           <PieChart  />
-          <Chart />
+          <Chart style={{marginBottom: "3rem"}} />
         </div>
 
         <CollectorSchedule />

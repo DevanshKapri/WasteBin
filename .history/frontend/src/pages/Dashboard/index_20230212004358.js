@@ -260,7 +260,6 @@ const Dashboard = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        
         <Grid container spacing={6}>
           <Grid_comp header="Congratulations , User!"
             subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"

@@ -46,5 +46,34 @@ router.post('/login', async (req, res) => {
     }
 })
 
+router.post("/notification", async (req, res) => {
+    //Create a new user
+    let donorNo = req.body.donorNo;
+    let address = req.body.location;
+
+    try {
+        const accountSid = 'ACba58a05db6a6412dde27b4fe08227f7b';
+        const authToken = 'c8e441c644ac7b9b3624931f4bbdf184';
+        const client = require('twilio')(accountSid, authToken);
+        client.messages
+            .create({
+                body: `WasteBin is at your service! We have got your food Waste pickup request fullfield. We will come to pick up your waste at :${address} `,
+                from: 'whatsapp:+14155238886',
+                to: 'whatsapp:+919399386770'
+            })
+            .then(message => console.log(message.sid))
+            .done();
+        return res.json({ "messege": "done" })
+
+
+
+    }
+    catch (err) {
+        return res.status(409).json(err);
+    }
+})
+
+
+
 
 module.exports = router;
