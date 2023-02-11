@@ -260,11 +260,11 @@ const Dashboard = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Grid container spacing={8}>
+        <Grid container spacing={6}>
           <Grid_comp />
           <Grid_comp />
           <Grid_comp />
-          <Grid_comp />
+          
 
           {/* <Grid item xs={3}>
             <Paper sx = {{height : '150px'}}>
@@ -285,7 +285,7 @@ const Dashboard = () => {
           <Chart />
         </div>
 
-        <div className="Form" style={{ marignTop: "10rem" }}>
+        <div className="Form" style={{ marignTop: "20rem" }}>
           <DonorForm />
           <div />
         </div>

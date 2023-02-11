@@ -210,36 +210,24 @@ const Dashboard_collector = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Grid container spacing={8}>
-
-
+        <Grid container spacing={6}>
           <Grid_comp />
           <Grid_comp />
           <Grid_comp />
-          <Grid_comp />
-
-
-
-
-
-
-          {/* <Grid item xs={3}>
-            <Paper sx = {{height : '150px'}}>
-              <Typography variant="h5" component="h3">Paper</Typography>
-            </Paper>
-          </Grid> */}
         </Grid>
 
         <div style={{ display: "flex", padding: "5px 20px", gap: "20px", marignTop: "8rem" }}>
-          <PieChart />
+           <PieChart /> 
           <Chart />
         </div>
 
-        
 
-        <Cal_comp_pick />
+        <div className="calendar" style={{marginTop: "10rem"}}>
+          <Cal_comp_pick />
+        </div>
 
-        <CollectorSchedule />
+
+        {/* <CollectorSchedule /> */}
       </Box>
     </Box >
   );

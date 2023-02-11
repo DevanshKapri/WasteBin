@@ -17,17 +17,13 @@ const Grid_comp = () => {
     return (
         <div className="widget">
             <div className="left">
-                <span className="title">BALANCE</span>
+                <span className="title" style={{fontSize: "1rem"}}>Congratulations , User!</span>
                 <span className="counter">
                     {"$"} {1200}
                 </span>
                 <span className="link">See details</span>
             </div>
             <div className="right">
-                <div className="percentage positive">
-                    <KeyboardArrowUpIcon />
-                    {diff} %
-                </div>
                 <AccountBalanceWalletOutlinedIcon
                     className="icon"
                     style={{
