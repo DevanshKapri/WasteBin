@@ -1,38 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-export default function UserRequests() {
-  const [userRequests, getUserRequests] = useState([
-    {
-      date: "2012-09-31",
-      waste_type: "Recyclable",
-      status: "Pending",
-      credits: 8,
-    },
-    {
-      date: "2013-09-31",
-      waste_type: "Recyclable",
-      status: "Pending",
-      credits: 8,
-    },
-    {
-      date: "2014-09-31",
-      waste_type: "Non-Recyclable",
-      status: "Accepted",
-      credits: 8,
-    },
-    {
-      date: "2015-09-31",
-      waste_type: "Recyclable",
-      status: "Pending",
-      credits: 8,
-    },
-    {
-      date: "2016-09-31",
-      waste_type: "Recyclable",
-      status: "Pending",
-      credits: 8,
-    },
-  ]);
+export default function UserRequests(props) {
   return (
     <div>
       <table
@@ -43,18 +11,24 @@ export default function UserRequests() {
           <tr>
             <th scope="col">S.No.</th>
             <th scope="col">Date</th>
-            <th scope="col">Waste Type</th>
+            {/* <th scope="col">Waste Type</th> */}
             <th scope="col">Status</th>
             <th scope="col">Credits</th>
           </tr>
         </thead>
 
         <tbody id="tableBody">
-          {userRequests.map((user, index) => (
+          {props.data.map((user, index) => (
             <tr>
               <td>{index + 1}</td>
-              <td>{user.date}</td>
-              <td>{user.waste_type}</td>
+              <td>{`${new Date(user.updatedAt).getDate()}/${
+                new Date(user.updatedAt).getMonth() + 1
+              }/${new Date(user.updatedAt).getFullYear()}      ${new Date(
+                user.updatedAt
+              ).getHours()}:${new Date(user.updatedAt).getMinutes()}:${new Date(
+                user.updatedAt
+              ).getSeconds()}`}</td>
+              {/* <td>{user.waste_type}</td> */}
               <td>
                 <div
                   style={{
@@ -69,7 +43,7 @@ export default function UserRequests() {
                   {user.status}
                 </div>
               </td>
-              <td>{user.credits}</td>
+              <td>1</td>
             </tr>
           ))}
         </tbody>
