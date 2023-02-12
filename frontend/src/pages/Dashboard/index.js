@@ -288,16 +288,16 @@ const Dashboard = () => {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
 
-        <Grid container spacing={6}>
+        <Grid container spacing={4} style={{width: "20rem"}}>
           <Grid_comp header={`Congratulations , ${User_details.name}!`}
             subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
             button="Redeem Credits" />
-          <Grid_comp header="Congratulations , User!"
+          {/* <Grid_comp header="Congratulations , User!"
             subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
             button="Redeem Credits" />
           <Grid_comp header="Congratulations , User!"
             subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
-            button="Redeem Credits" />
+            button="Redeem Credits" /> */}
         </Grid>
 
         <div

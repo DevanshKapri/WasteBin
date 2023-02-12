@@ -53,7 +53,7 @@ const Grid_comp = (props) => {
 
 
     return (
-        <div className="widget" style={{ height: "33rem" }}>
+        <div className="widget" style={{ height: "30rem" }}>
             <div className="left">
 
                 <span className="title" style={{ textAlign: "center", marginLeft: "3rem", fontSize: "1rem" }}>{props.title}</span>
@@ -67,16 +67,16 @@ const Grid_comp = (props) => {
 
                 <div className="buttons" style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
 
-                    <Button onClick={handleBuy} loading variant="solid" style={{ backgroundColor: "rgba(21, 205, 116, 0.2)", width: "8rem", marginLeft: "2rem" }}>
+                    <Button onClick={handleBuy} loading variant="solid" style={{ backgroundColor: "rgba(21, 205, 116, 0.2)", width: "9rem", height: "2.3rem" , marginLeft: "2rem" , borderRadius: "10px" }}>
                         Buy Now!
                     </Button>
 
-                    <Button onClick={handleQuantity} loading variant="solid" style={{ backgroundColor: "rgba(173, 166, 19, 0.2)", width: "8rem", marginLeft: "5rem" }}>
+                    <Button onClick={handleQuantity} loading variant="solid" style={{ backgroundColor: "rgba(173, 166, 19, 0.2)", width: "9rem", marginLeft: "5rem" , height: "2.3rem" , borderRadius: "10px" }}>
                         Quantity: {realquantity}
                     </Button>
 
-                    <Button onClick={handlePrice} loading variant="solid" style={{ backgroundColor: "rgba(128, 0, 128, 0.2)", width: "8rem", marginLeft: "5rem" }}>
-                        price: {realprice} credits
+                    <Button onClick={handlePrice} loading variant="solid" style={{ backgroundColor: "rgba(128, 0, 128, 0.2)", width: "9rem", marginLeft: "5rem" , height: "2.3rem" , borderRadius: "10px" }}>
+                        price: {realprice}
                     </Button>
 
                 </div>
