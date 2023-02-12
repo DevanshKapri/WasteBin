@@ -29,31 +29,31 @@ import { DonorForm } from "./comp/Form";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserRequests from "./UserRequests";
-import HistoryIcon from '@mui/icons-material/History';
+import HistoryIcon from "@mui/icons-material/History";
 import axios from "axios";
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import PersonIcon from '@mui/icons-material/Person';
-import LogoutIcon from '@mui/icons-material/Logout';
-import socket from '../../socket';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import Backdrop from '@mui/material/Backdrop';
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PersonIcon from "@mui/icons-material/Person";
+import LogoutIcon from "@mui/icons-material/Logout";
+import socket from "../../socket";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import Backdrop from "@mui/material/Backdrop";
 // import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
-import NotificationAddIcon from '@mui/icons-material/NotificationAdd';
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
+import Button from "@mui/material/Button";
+import NotificationAddIcon from "@mui/icons-material/NotificationAdd";
 // import UserDistance from './UserDistance';
 const drawerWidth = 240;
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
@@ -130,12 +130,12 @@ const Dashboard = () => {
   const [isNot, setIsNot] = React.useState(false);
   const [note, setNote] = React.useState("");
 
-  socket.emit('join_room', 'room1');
-  socket.on('requestAccepted', (data) => {
+  socket.emit("join_room", "room1");
+  socket.on("requestAccepted", (data) => {
     console.log(data);
     setIsNot(true);
     setNote(data);
-  })
+  });
   const getRequests = async () => {
     await axios
       .get("http://localhost:8000/getRequests")
@@ -154,10 +154,8 @@ const Dashboard = () => {
     if (token && User && User.role === "User") {
       setUser(User);
       getRequests();
-    } 
-    else 
-      navigate("/");
-  }, []); 
+    } else navigate("/");
+  }, []);
 
   const data = requests.filter((item) => item.user === user._id);
   console.log(data);
@@ -179,9 +177,6 @@ const Dashboard = () => {
   };
 
   const handleClose = () => setOpen1(false);
-  
-
- 
 
   const User_details = JSON.parse(localStorage.getItem("user"));
 
@@ -205,13 +200,14 @@ const Dashboard = () => {
           <Typography variant="h6" noWrap component="div">
             Waste Bin
           </Typography>
-          <IconButton 
-            sx = {{float : "right"}}
-            onClick =  {handleOpen}
-            >
-            {isNot ? <NotificationAddIcon  sx = {{color : "white"}}/> : <NotificationsIcon sx = {{color : "white"}}/>}
+          <IconButton sx={{ float: "right" }} onClick={handleOpen}>
+            {isNot ? (
+              <NotificationAddIcon sx={{ color: "white" }} />
+            ) : (
+              <NotificationsIcon sx={{ color: "white" }} />
+            )}
           </IconButton>
-              <Modal
+          <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             open={open1}
@@ -224,11 +220,15 @@ const Dashboard = () => {
           >
             <Fade in={open1}>
               <Box sx={style}>
-                <Typography id="transition-modal-title" variant="h4" component="h2">
+                <Typography
+                  id="transition-modal-title"
+                  variant="h4"
+                  component="h2"
+                >
                   Notifications
                 </Typography>
                 <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                  {(!isNot) ? "No new notification" : `${note.email}`}
+                  {!isNot ? "No new notification" : `${note.email}`}
                 </Typography>
               </Box>
             </Fade>
@@ -308,10 +308,10 @@ const Dashboard = () => {
               px: 2.5,
             }}
             onClick={() => {
-              localStorage.removeItem('token');
-              localStorage.removeItem('user');
-              navigate('/');
-              console.log('logout');
+              localStorage.removeItem("token");
+              localStorage.removeItem("user");
+              navigate("/");
+              console.log("logout");
             }}
           >
             <ListItemIcon
@@ -330,16 +330,22 @@ const Dashboard = () => {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
 
-        <Grid container spacing={4} style={{width: "20rem"}}>
-          <Grid_comp header={`Congratulations , ${User_details.name}!`}
+        <Grid container spacing={4} style={{ width: "20rem" }}>
+          <Grid_comp
+            header={`Congratulations , ${User_details.name}!`}
             subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
-            button="Redeem Credits" />
-          {/* <Grid_comp header="Congratulations , User!"
+            button="Redeem Credits"
+          />
+          {/* <Grid_comp
+            header="Congratulations , User!"
             subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
-            button="Redeem Credits" />
-          <Grid_comp header="Congratulations , User!"
+            button="Redeem Credits"
+          />
+          <Grid_comp
+            header="Congratulations , User!"
             subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
-            button="Redeem Credits" /> */}
+            button="Redeem Credits"
+          /> */}
         </Grid>
 
         <div
@@ -354,11 +360,27 @@ const Dashboard = () => {
           <Chart />
         </div>
 
-        <div className="Form" style={{ position: "relative", top: "3rem" }}>
+        <div
+          className="Form"
+          style={{
+            position: "relative",
+            top: "8rem",
+            border: "1px solid black",
+            padding: "40px",
+            width: "100%",
+          }}
+        >
+          <h2
+            style={{ position: "relative", top: "-1rem", textAlign: "center" }}
+          >
+            Request for Waste Collection
+          </h2>
           <DonorForm />
           <div />
         </div>
-        <UserRequests data={data} />
+        <div style={{ marginTop: "7rem" }}>
+          <UserRequests data={data} />
+        </div>
       </Box>
     </Box>
   );
