@@ -177,4 +177,23 @@ router.post('/getCredit', async(req, res) => {
     }
 })
 
+router.post('/setScore', async(req, res) => {
+    const data = req.body
+    const user = await User.findOne({ email : data.email})
+    if(user) {
+        user.score = data.score
+        await user.save()
+                    .then((user) => {
+                        return res.status(200).json(user)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        return res.status(500).json(err)
+                    })
+    }
+    else {
+        return res.status(400).json({ error : 'User does not exist'})
+    }
+})
+
 module.exports = router

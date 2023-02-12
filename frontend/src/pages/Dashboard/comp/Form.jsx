@@ -29,7 +29,7 @@ import socket from '../../../socket';
 
 
 
-export const DonorForm = () => {
+export const DonorForm = (props) => {
 
     const [tableactive, settable] = React.useState('hide');
     const [donorNo, setdonorNo] = React.useState(0)
@@ -145,6 +145,7 @@ export const DonorForm = () => {
             .then((response) => {
                 console.log(response.data);
                 socket.emit('newRequest', 'room2')
+                props.getRequests()
             })
             .catch((err) => {
                 console.log(err)

@@ -260,7 +260,7 @@ const Dashboard_collector = () => {
                   Notifications
                 </Typography>
                 <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                  New reuests to collect garbage are there have a look !
+                  Recieved new requests. Take a look !
                 </Typography>
               </Box>
             </Fade>
