@@ -154,7 +154,7 @@ router.post('/acceptRequest', async(req, res) => {
             return res.status(400).json({ error : 'Request does not exist'})
         }
     }
-  } else {
+   else {
     return res
       .status(400)
       .json({ error: "User does not exist or is not a verified collector" });
