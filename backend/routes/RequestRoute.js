@@ -6,7 +6,7 @@ const Request = require('../models/RequestModel')
 
 router.get('/getRequests', async(req, res) => {
     const requests = await Request.find()
-    console.log(requests)
+    // console.log(requests)
     return res.status(200).json(requests)
 })
 
@@ -34,7 +34,7 @@ router.get('/getRequests', async(req, res) => {
 
 router.post('/addRequest', async(req, res) => {
     const data = req.body
-    console.log(data)
+    // console.log(data)
     const user = await User.findOne({ email : data.email})
     if(user) {
         const request = new Request({
@@ -75,7 +75,7 @@ router.post('/acceptRequest', async(req, res) => {
         let req = await Request.find();
         if(request) {
             if(request.status === 'accepted') {
-                console.log("already accepted");
+                // console.log("already accepted");
                 return res.status(200).json(req);
             }
             request.status = 'accepted'
@@ -83,7 +83,7 @@ router.post('/acceptRequest', async(req, res) => {
             user.requests.push(request._id);
             await user.save()
                 .then((user) => {
-                    console.log(user)
+                    // console.log(user)
                 })
                 .catch((err) => {
                     console.log(err)
