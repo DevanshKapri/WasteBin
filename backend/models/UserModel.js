@@ -22,6 +22,10 @@ const userSchema = new Schema({
         type : String,
         default : 'unverified' // unverified verified rejected
     },
+    credit : {
+        type : Number,
+        default : 0
+    },
     requests: [
         {
             type: Schema.Types.ObjectId,

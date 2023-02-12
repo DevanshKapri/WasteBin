@@ -49,6 +49,7 @@ router.post('/addRequest', async(req, res) => {
         await request.save()
                     .then((request) => {
                         user.requests.push(request._id)
+                        user.credit = user.credit + 1
                         user.save()
                         return request;
                     })
@@ -146,6 +147,17 @@ router.post('/completeRequest', async(req, res) => {
     }
     else {
         return res.status(400).json({ error : 'User does not exist or is not a verified collector'})
+    }
+})
+
+router.post('/getCredit', async(req, res) => {
+    const data = req.body
+    const user = await User.findOne({ email : data.email})
+    if(user) {
+        return res.status(200).json({ credit : user.credit})
+    }
+    else {
+        return res.status(400).json({ error : 'User does not exist'})
     }
 })
 

@@ -46,5 +46,17 @@ router.post('/login', async (req, res) => {
     }
 })
 
+router.post('/getDetail', async (req, res) => {
+    const data = req.body
+    const user = await User.findOne({ _id : data._id })
+    if (user) {
+        // console.log(user)
+        return res.status(200).json(user)
+    }
+    else {
+        console.log('User does not exist');
+        return res.status(400).json({ error: 'User does not exist' })
+    }
+})
 
 module.exports = router;
