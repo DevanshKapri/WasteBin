@@ -230,7 +230,7 @@ const Dashboard = () => {
                   Notifications
                 </Typography>
                 <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                  {isNot ? `${note.email}`:"No new notification"}
+                  "Request has been accepted by the collector"
                 </Typography>
               </Box>
             </Fade>
