@@ -5,6 +5,7 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Grid_comp = (props) => {
     let data;
@@ -12,7 +13,7 @@ const Grid_comp = (props) => {
     //temporary
     const amount = 100;
     const diff = 20;
-
+    const navigate = useNavigate();
 
 
 
@@ -23,7 +24,11 @@ const Grid_comp = (props) => {
                 <span className="title" style={{ fontSize: "0.8rem", position: "relative", bottom: "1.5rem" }}>{props.subheader}</span>
 
 
-                <Button loading variant="solid" style={{ backgroundColor: "rgba(21, 205, 116, 0.2)", width: "15rem" , position: "relative" , bottom: "2.8rem" }}>
+                <Button loading variant="solid" style={{ backgroundColor: "rgba(21, 205, 116, 0.2)", width: "15rem" , position: "relative" , bottom: "2.8rem" }}
+                    onClick= {() => {
+                        navigate('/credit')
+                    }
+                }>
                     {props.button}
                 </Button>
             </div>

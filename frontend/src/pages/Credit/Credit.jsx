@@ -29,6 +29,7 @@ import { DonorForm } from './comp/Form';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 // import UserDistance from './UserDistance';
 const drawerWidth = 240;
@@ -99,7 +100,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const Credit = () => {
-
+    const navigate = useNavigate()
     const [proData, setProData] = useState([])
 
     const getProductData = async () => {
@@ -111,8 +112,35 @@ const Credit = () => {
         }
     }
 
+    const [user, setUser] = useState()
+    const [score,setScore] = useState(5)
+    const getCredit = async(email) => {
+        axios.post('http://localhost:8000/getCredit', {
+            email : email,
+        })
+        .then((response) => {
+            console.log(response.data)
+            setScore(response.data.credit)
+        }
+        )
+        .catch((error) => {
+            console.log(error)
+        }
+        )
+    }
+
     useEffect(() => {
+        const token = JSON.parse(localStorage.getItem("token"));
+        const User = JSON.parse(localStorage.getItem("user"));
+        if (token && User) {
+            setUser(User)
+        }
+        else
+        {
+            navigate('/')
+        }
         getProductData()
+        getCredit(User.email)
     }, [])
 
 
@@ -128,7 +156,7 @@ const Credit = () => {
         setOpen(false);
     };
 
-    const [score,setScore] = useState(5)
+    
 
     return (
         <>
@@ -249,6 +277,7 @@ const Credit = () => {
                                         price={products.price}
                                         quantity={products.quantity} 
                                         score = {score}
+                                        email = {user.email}
                                         setScore = {setScore}/>
 
                                 </>

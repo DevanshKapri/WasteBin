@@ -35,11 +35,28 @@ const Grid_comp = (props) => {
         //  }
     }
 
+    const changeScore = async(score) => {
+        await axios.post("http://localhost:8000/setScore", {
+            score: score,
+            email : props.email
+        })
+        .then((res) => {
+            console.log(res)
+            localStorage.setItem("user", JSON.stringify(res.data))
+        }
+        )
+        .catch((err) => {
+            console.log(err)
+        }
+        )
+    }
+
     const handleBuy = () => {
         setRealQuantity(realquantity - 1)
 
         if (realscore >= realprice) {
             setRealScore(realscore - realprice)
+            changeScore(realscore - realprice)
             props.setScore(realscore - realprice)
             alert("purchase successful!")
         }
