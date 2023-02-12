@@ -5,6 +5,11 @@ import Work from "./Components/Work";
 import Testimonial from "./Components/Testimonial";
 import Contact from "./Components/Contact";
 import Footer from "./Components/Footer";
+import { useEffect } from "react";
+import axios from "axios"
+
+
+
 
 function App() {
   return (
@@ -13,7 +18,6 @@ function App() {
       <About />
       <Work />
       <Contact />
-      <Footer />
     </div>
   );
 }

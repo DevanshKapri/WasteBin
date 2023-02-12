@@ -34,6 +34,7 @@ import axios from "axios";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useState } from "react";
 // import UserDistance from './UserDistance';
 const drawerWidth = 240;
 
@@ -107,7 +108,7 @@ const Dashboard = () => {
   const [requests, setRequests] = React.useState([]);
   const [user, setUser] = React.useState([]);
 
-  
+
   const getRequests = async () => {
     await axios
       .get("http://localhost:8000/getRequests")
@@ -145,6 +146,11 @@ const Dashboard = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+ 
+  
+
+ 
 
   const User_details = JSON.parse(localStorage.getItem("user"));
 
@@ -264,9 +270,9 @@ const Dashboard = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        
+
         <Grid container spacing={6}>
-          <Grid_comp header = {`Congratulations , ${User_details.name}!`}
+          <Grid_comp header={`Congratulations , ${User_details.name}!`}
             subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
             button="Redeem Credits" />
           <Grid_comp header="Congratulations , User!"
