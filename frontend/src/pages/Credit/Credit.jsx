@@ -133,11 +133,11 @@ const Credit = () => {
     return (
         <>
 
-            <Typography variant="h2" noWrap component="div" style={{ marginTop: "10rem", textAlign: "center" }}>
+            <Typography variant="h3" noWrap component="div" style={{ marginTop: "10rem", textAlign: "center" }}>
                 Welcome to the recyclable product's shop!
             </Typography>
 
-            <Typography variant="h4" noWrap component="div" style={{ textAlign: "center", marginTop: "2rem" }}>
+            <Typography variant="h5" noWrap component="div" style={{ textAlign: "center", marginTop: "2rem" }}>
                 Your Current Credit Score is: {score}
             </Typography>
 

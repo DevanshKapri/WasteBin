@@ -141,7 +141,7 @@ const Dashboard = () => {
     } else navigate("/");
     if (User.role === "collector" && User.status === "unverified")
       navigate("/");
-  }, []);
+  }, []); 
 
   const data = requests.filter((item) => item.user === user._id);
   console.log(data);
@@ -155,6 +155,11 @@ const Dashboard = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+ 
+  
+
+ 
 
   const User_details = JSON.parse(localStorage.getItem("user"));
 
@@ -282,17 +287,17 @@ const Dashboard = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        
-        <Grid container spacing={6}>
-          <Grid_comp header = {`Congratulations , ${User_details.name}!`}
+
+        <Grid container spacing={4} style={{width: "20rem"}}>
+          <Grid_comp header={`Congratulations , ${User_details.name}!`}
+            subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
+            button="Redeem Credits" />
+          {/* <Grid_comp header="Congratulations , User!"
             subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
             button="Redeem Credits" />
           <Grid_comp header="Congratulations , User!"
             subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
-            button="Redeem Credits" />
-          <Grid_comp header="Congratulations , User!"
-            subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
-            button="Redeem Credits" />
+            button="Redeem Credits" /> */}
         </Grid>
 
         <div

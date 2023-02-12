@@ -41,39 +41,7 @@ router.post("/getRequest", async (req, res) => {
     return res.status(400).json(err);
   }
 });
-router.post("/addRequest", async (req, res) => {
-  const data = req.body;
-  console.log(data);
-  const user = await User.findOne({ email: data.email });
-  if (user) {
-    const request = new Request({
-      message: data.message,
-      photoUrl: data.photoUrl,
-      user: user._id,
-      latitude: data.latitude,
-      longitude: data.longitude,
-      status: "pending",
-      wasteType: data.wasteType,
-    });
-    await request
-      .save()
-      .then((request) => {
-        user.requests.push(request._id);
-        user.save();
-        return request;
-      })
-      .then((request) => {
-        return res.status(200).json(request);
-      })
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json(err);
-      });
-  } else {
-    console.log("User does not exist");
-    return res.status(400).json({ error: "User does not exist" });
-  }
-});
+
 
 router.post('/addRequest', async(req, res) => {
     const data = req.body
@@ -92,9 +60,11 @@ router.post('/addRequest', async(req, res) => {
         await request.save()
                     .then((request) => {
                         user.requests.push(request._id)
-                        user.credit = user.credit + 1
+                        if(data.wasteType === 'recyclable')
+                          user.credit = user.credit + 1
                         user.save()
                         return request;
+                        
                     })
                     .then((request) => {
                         return res.status(200).json(request)
