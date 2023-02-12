@@ -105,21 +105,21 @@ const Dashboard_admin = () => {
   const [user, setUser] = React.useState();
   const [data, setData] = React.useState();
 
-  const getData = async(email) => {
+  const getData = async (email) => {
     await axios.post('http://localhost:8000/getAllCollectors', {
-      email 
+      email
     })
-    .then(res => {
-      const mid = res.data.filter((item) => item.status === 'unverified');
-      return mid;
-    })
-    .then(res => {
-      console.log(res);
-      setData(res);
-    })
-    .catch(err => {
-      console.log(err);
-    })
+      .then(res => {
+        const mid = res.data.filter((item) => item.status === 'unverified');
+        return mid;
+      })
+      .then(res => {
+        console.log(res);
+        setData(res);
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   useEffect(() => {
@@ -146,18 +146,18 @@ const Dashboard_admin = () => {
     setOpen(false);
   };
 
-  const[count , setCount] = useState(0)
+  const [count, setCount] = useState(0)
 
   const handleapi = async () => {
 
-        let info = await axios.get("http://localhost:8000/getRequests")
+    let info = await axios.get("http://localhost:8000/getRequests")
 
-        try {
-          console.log(info.data)
-           setCount(info.data.length)
-        } catch (error) {
-          console.log(error)
-        }
+    try {
+      console.log(info.data)
+      setCount(info.data.length)
+    } catch (error) {
+      console.log(error)
+    }
 
 
   }
@@ -260,8 +260,8 @@ const Dashboard_admin = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Grid container spacing={4} style={{width: "20rem"}}>
-          <Grid_comp count = {count} />
+        <Grid container spacing={4} style={{ width: "20rem" }}>
+          <Grid_comp count={count} />
         </Grid>
 
         <div style={{ display: "flex", padding: "10px 20px", gap: "20px", marignTop: "8rem" }}>
@@ -270,17 +270,20 @@ const Dashboard_admin = () => {
         </div>
 
         <div>
-          <div className="Form" style={{ position: "relative", top: "8rem" , border: "1px solid black", padding: "40px", width: '100%'}}>
-            <h2 style={{ position: "relative", top: "-1rem", textAlign : "center" }}>Enter Details of the product</h2>
+          <div className="Form" style={{ position: "relative", top: "8rem", border: "1px solid black", padding: "40px", width: '100%' }}>
+            <h2 style={{ position: "relative", top: "-1rem", textAlign: "center" }}>Enter Details of the product</h2>
             <DonorForm />
           </div>
         </div>
 
-        <div className="schedule" style={{marginTop: "7rem"}}>
+        <div className="schedule" style={{ marginTop: "7rem" }}>
           {/* <CollectorSchedule /> */}
-          <CollectorVerify data = {data} email = {user?.email} getData = {getData}/>
+          <CollectorVerify data={data} email={user?.email} getData={getData} />
         </div>
 
+        <div className="api" style={{ marginTop: "28rem" }}>
+
+        </div>
       </Box>
     </Box >
   );

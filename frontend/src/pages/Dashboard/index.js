@@ -37,6 +37,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import socket from '../../socket';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import { useState } from "react";
 // import UserDistance from './UserDistance';
 const drawerWidth = 240;
 
@@ -156,9 +157,25 @@ const Dashboard = () => {
     setOpen(false);
   };
 
- 
-  
+  const User_data = localStorage.getItem("user");
+  console.log(User_data)
+  console.log(user.email)
 
+  const [credits,setCredits] = useState(5)
+
+  const handleCredits = async () => {
+    let info = await axios.post("http://localhost:8000/getCredit" , {email: user.email})
+      setCredits(info.data)
+    try {
+      console.log(info)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  handleCredits()
+
+  console.log(credits.credit)
  
 
   const User_details = JSON.parse(localStorage.getItem("user"));
@@ -291,7 +308,8 @@ const Dashboard = () => {
         <Grid container spacing={4} style={{width: "20rem"}}>
           <Grid_comp header={`Congratulations , ${User_details.name}!`}
             subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
-            button="Redeem Credits" />
+            button="Redeem Credits"
+            credits = {credits.credit} />
           {/* <Grid_comp header="Congratulations , User!"
             subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
             button="Redeem Credits" />

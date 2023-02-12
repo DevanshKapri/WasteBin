@@ -20,7 +20,7 @@ const Grid_comp = (props) => {
         <div className="widget" style={{height: "18rem"}}>
             <div className="left">
                 <span className="title" style={{ fontSize: "1.4rem" }}>{props.header}</span>
-                <span className="title" style={{ fontSize: "0.8rem", position: "relative", bottom: "1.5rem" }}>{props.subheader}</span>
+                <span className="title" style={{ fontSize: "0.8rem", position: "relative", bottom: "1.5rem" }}>You have earned  {props.credits} this month , You can redeem your credit by clicking the below button</span>
 
 
                 <Button loading variant="solid" style={{ backgroundColor: "rgba(21, 205, 116, 0.2)", width: "15rem" , position: "relative" , bottom: "2.8rem" }}>
