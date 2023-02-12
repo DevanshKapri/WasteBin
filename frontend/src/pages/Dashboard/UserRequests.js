@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 export default function UserRequests(props) {
+  console.log(props.data);
   return (
     <div>
       <table
@@ -11,7 +12,7 @@ export default function UserRequests(props) {
           <tr>
             <th scope="col">S.No.</th>
             <th scope="col">Date</th>
-            {/* <th scope="col">Waste Type</th> */}
+            <th scope="col">Waste Type</th>
             <th scope="col">Status</th>
             <th scope="col">Credits</th>
           </tr>
@@ -28,7 +29,7 @@ export default function UserRequests(props) {
               ).getHours()}:${new Date(user.updatedAt).getMinutes()}:${new Date(
                 user.updatedAt
               ).getSeconds()}`}</td>
-              {/* <td>{user.waste_type}</td> */}
+              <td>{user.wasteType}</td>
               <td>
                 <div
                   style={{
