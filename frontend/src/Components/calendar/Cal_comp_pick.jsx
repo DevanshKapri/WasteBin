@@ -39,14 +39,14 @@ const localizer = dateFnsLocalizer({
 // ];
 
 function Cal_comp_pick(props) {
+  const [allEvent, setAllEvent] = useState([]);
+
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
   let allEvents = [];
 
   const handleAddEvent = async () => {
     let requests = [];
-    let approveTime = [];
-    let names = [];
-    console.log(props.user);
+    // console.log(props.user);
     await axios
       .post("http://localhost:8000/getDetail", {
         _id: props.user,
@@ -59,43 +59,69 @@ function Cal_comp_pick(props) {
       });
     console.log(requests);
     const updateArr = async (id, time) => {
+      // console.log(id, time);
       await axios
         .post("http://localhost:8000/getDetail", {
           _id: id,
         })
         .then((res) => {
+          let name = "unknown";
           if (res.data) {
-            names.push(res.data.name);
-          } else {
-            names.push("unknown");
+            name = res.data.name;
           }
-          approveTime.push(time);
+          allEvents.push({
+            title: name,
+            start: time,
+            end: time,
+          });
+          setAllEvent(allEvents);
         })
         .catch((err) => {
           console.log(err);
         });
     };
-    for (let i = 0; i < requests.length; i++) {
+    const get_date = async (id, time, longitude, latitude) => {
       await axios
-        .post("http://localhost:8000/getRequest", {
-          _id: requests[i],
+        .post("https://Regression.devanshkapri1.repl.co/predict", {
+          longitude: longitude,
+          latitude: latitude,
         })
         .then((res) => {
           if (res.data) {
-            updateArr(res.data.user, res.data.approveTime);
+            let date = new Date(time);
+            date = new Date(date.setDate(date.getDate() + res.data.prediction));
+            // console.log(date);
+            // console.log(res.data.prediction);
+            updateArr(id, date);
           }
         })
         .catch((err) => {
           console.log(err);
         });
-    }
-    console.log(names, approveTime);
-    for (let i = 0; i < names.length; i++) {
-      allEvents.push({
-        title: names[i],
-        start: approveTime[i],
-        end: approveTime[i],
-      });
+    };
+    const fetchRequestParams = async (_id) => {
+      await axios
+        .post("http://localhost:8000/getRequest", {
+          _id: _id,
+        })
+        .then((res) => {
+          if (res.data) {
+            console.log(res.data);
+            get_date(
+              res.data.user,
+              res.data.createdAt,
+              res.data.longitude,
+              res.data.latitude
+            );
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    for (let i = 0; i < requests.length; i++) {
+      fetchRequestParams(requests[i]);
     }
     for (let i = 0; i < allEvents.length; i++) {
       const d1 = new Date(allEvents[i].start);
@@ -114,9 +140,13 @@ function Cal_comp_pick(props) {
         break;
       }
     }
+    console.log(allEvents);
     // setAllEvents([...allEvents, newEvent]);
   };
-  handleAddEvent();
+
+  React.useEffect(() => {
+    handleAddEvent();
+  }, [props]);
 
   return (
     <div className="App">
@@ -147,7 +177,7 @@ function Cal_comp_pick(props) {
       </div> */}
       <Calendar
         localizer={localizer}
-        events={allEvents}
+        events={allEvent}
         startAccessor="start"
         endAccessor="end"
         style={{ height: 500, margin: "50px" }}

@@ -36,7 +36,7 @@ export default function UserRequests(props) {
                     borderStyle: "solid",
                     borderRadius: "15px",
                     backgroundColor:
-                      user.status === "Pending" ? "#e66e6e" : "#70d156",
+                      user.status === "pending" ? "#e66e6e" : "#70d156",
                     maxWidth: "100px",
                     textAlign: "center",
                   }}
@@ -44,7 +44,11 @@ export default function UserRequests(props) {
                   {user.status}
                 </div>
               </td>
-              <td>1</td>
+              <td>
+                {user.wasteType == "Organic" || user.wasteType == "Recyclable"
+                  ? 1
+                  : 0}
+              </td>
             </tr>
           ))}
         </tbody>

@@ -29,7 +29,7 @@ import socket from '../../../socket';
 
 
 
-export const DonorForm = () => {
+export const DonorForm = (props) => {
 
     const [tableactive, settable] = React.useState('hide');
     const [donorNo, setdonorNo] = React.useState(0)
@@ -145,6 +145,7 @@ export const DonorForm = () => {
             .then((response) => {
                 console.log(response.data);
                 socket.emit('newRequest', 'room2')
+                props.getRequests()
             })
             .catch((err) => {
                 console.log(err)
@@ -156,10 +157,21 @@ export const DonorForm = () => {
 
     return (
         <>
-            <div className='donorForm'>
+            <div className='donorForm' style = {{
+                width : '100%',
+                display : 'flex',
+                flexDirection : 'column',
+                justifyContent : 'center',
+                alignItems : 'center',
+            }}>
                 <div className='form-css'>
 
-                    <div className="form-row">
+                    <div className="form-row" style = {{
+                        display : 'flex',
+                        flexDirection : 'column',
+                        justifyContent : 'center',
+                        alignItems : 'center',
+                    }}>
                         <div className="form-group col-md-6">
                             <label for="inputEmail4">Message</label>
                             <input type="text" className="form-control" id="inputEmail4" onChange={(event) => setMessage(event.target.value)} placeholder="Write a message" />
@@ -185,7 +197,12 @@ export const DonorForm = () => {
                     </select> */}
 
 
-                    <div className="form-row">
+                    <div className="form-row" style = {{
+                        display : 'flex',
+                        flexDirection : 'column',
+                        justifyContent : 'center',
+                        alignItems : 'center',
+                    }}>
                         {/* <div className="form-group col-md-6">
                         <label for="inputCity">City</label>
                         <input type="text" className="form-control" id="inputCity" />
@@ -235,12 +252,18 @@ export const DonorForm = () => {
                         </select>
                     </div> */}
                         <div>
-                            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Upload waste image</label> <br />
+                            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Upload Waste Image</label> <br />
 
                             <input type="file" onChange={handleChange} accept="/image/*" />
                             <br />
                             <br />
-                            <button onClick={handleUpload}>Upload to Firebase</button>
+                            <button onClick={handleUpload} style = {{
+                                // border : '2px solid black',
+                                padding : '5px 10px',
+                                color: 'white',
+                                borderRadius : '5px',
+                                backgroundColor : '#0069D9',
+                            }}>Upload</button>
                             {/* <p>{percent} "% done"</p> */}
 
 
@@ -255,7 +278,16 @@ export const DonorForm = () => {
 
                     </div>
                     <br />
-                    <button type="submit" className="btn btn-primary" onClick={handlesubmit}>Submit</button>
+                    <div style = {{
+                        display : 'flex',
+                        flexDirection : 'column',
+                        justifyContent : 'center',
+                        alignItems : 'center',
+                        width: '100%'
+                    }}>
+                        <button type="submit" className="btn btn-primary" onClick={handlesubmit}>Submit</button>
+                    </div>
+                    
                 </div>
 
                 {open && <Modal_prop imgurl = {imgurl} setwasteType = {setwasteType}/>}
