@@ -34,6 +34,10 @@ io.on('connection', (socket) => {
         console.log('reached backend');
         io.to(data).emit('newRequest', data);
     });
+
+    socket.on('requestAccepted', (data) => {
+        io.to(data).emit(data, 'room1');
+    });
 });
 
 
