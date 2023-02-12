@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import socket from "../../socket";
 
 export default function CollectorResponse(props) {
   // let data = [
@@ -95,6 +96,11 @@ export default function CollectorResponse(props) {
                       })
                       .then((res) => {
                         console.log(res);
+                        socket.emit("requestAccepted", {
+                          Datetime,
+                          user: user.user,
+                          email: props.email,
+                        });
                         props.getRequests();
                       })
                       .catch((err) => {

@@ -19,7 +19,7 @@ router.post('/verifyCollector', async (req, res) => {
     const data = req.body
     const user = await User.findOne({ email: data.email })
     const col = await User.findOne({ role: 'collector' })
-    console.log(user)
+    // console.log(user)
     if (user && user.role === 'admin') {
         const collector = await User.findOne({ _id: data.collectorId })
         if (collector) {
@@ -53,7 +53,7 @@ router.post('/rejectCollector', async (req, res) => {
     const data = req.body
     const user = await User.findOne({ email: data.email })
     const col = await User.findOne({ role: 'collector' })
-    console.log(user)
+    // console.log(user)
     if (user && user.role === 'admin') {
         const collector = await User.findOne({ _id: data.collectorId })
         if (collector) {
@@ -109,6 +109,7 @@ router.post('/addCredit', async (req, res) => {
         return res.status(400).json({ error: 'User does not exist or is not an admin' })
     }
 })
+
 
 router.get('/getAllProducts', async (req, res) => {
     const products = await Product.find()

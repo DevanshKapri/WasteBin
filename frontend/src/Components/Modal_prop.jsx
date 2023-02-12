@@ -89,7 +89,7 @@ const Modal_prop = (props) => {
                         <div>
                             <h4>predication result</h4>
                             <h5>result: {result}</h5>
-                            <h5>confidance: {confidance}</h5>
+                            <h5>confidence: {confidance}</h5>
                         </div>
                     }
                 </Box>

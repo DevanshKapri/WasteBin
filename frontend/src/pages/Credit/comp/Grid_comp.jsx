@@ -6,34 +6,77 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import { Button } from "@mui/material";
 import waste_about from "../../../Assets/waste_about.jpg"
+import { useEffect, useState } from "react";
+import { async } from "@firebase/util";
+import axios from "axios";
 
-const Grid_comp = () => {
-    let data;
+const Grid_comp = (props) => {
 
-    //temporary
-    const amount = 100;
-    const diff = 20;
+
+
+    const [realprice, setRealPrice] = useState(props.price)
+    const [realquantity, setRealQuantity] = useState(props.quantity)
+    const [realscore, setRealScore] = useState(props.score)
+
+    const handleQuantity = () => {
+        // setRealQuantity(realquantity-1)
+    }
+
+    const handlePrice = () => {
+
+        //  if(realscore >= realprice){
+        //     setRealScore(realscore-realprice)
+        //     props.setScore(realscore-realprice)
+        //     alert("purchase successful!")
+        //  }
+
+        //  else{
+        //     alert("You do not have enough Credits to purchase the requested Product! Wanna purchase by spending real money? click here!")
+        //  }
+    }
+
+    const handleBuy = () => {
+        setRealQuantity(realquantity - 1)
+
+        if (realscore >= realprice) {
+            setRealScore(realscore - realprice)
+            props.setScore(realscore - realprice)
+            alert("purchase successful!")
+        }
+
+        else {
+            alert("You do not have enough Credits to purchase the requested Product! Wanna purchase by spending real money? click here!")
+        }
+    }
+
 
 
 
     return (
-        <div className="widget" style={{ height: "22rem" }}>
+        <div className="widget" style={{ height: "33rem" }}>
             <div className="left">
-                <span className="title" style={{ textAlign: "center", marginLeft: "3rem", fontSize: "1rem" }}>Product Name</span>
-                
 
-                <div className="image" style={{ width: "250px", marginLeft: "5rem", marginBottom: "3rem" }}>
-                    <img src={waste_about} alt="" />
+                <span className="title" style={{ textAlign: "center", marginLeft: "3rem", fontSize: "1rem" }}>{props.title}</span>
+                <span className="title" style={{ textAlign: "center", marginLeft: "3rem", fontSize: "0.7rem", position: "relative", bottom: "8.5rem" }}>{props.desc}</span>
+
+
+
+                <div className="image" style={{ width: "250px", marginLeft: "14.8rem", marginTop: "-17rem", width: "200px", height: "100px", alignItems: "center" }}>
+                    <img src={props.imgurl} alt="" style={{ height: "200px", width: "280px", borderRadius: "15px" }} />
                 </div>
 
                 <div className="buttons" style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
 
-                    <Button loading variant="solid" style={{ backgroundColor: "rgba(21, 205, 116, 0.2)", width: "8rem", marginLeft: "2rem" }}>
+                    <Button onClick={handleBuy} loading variant="solid" style={{ backgroundColor: "rgba(21, 205, 116, 0.2)", width: "8rem", marginLeft: "2rem" }}>
                         Buy Now!
                     </Button>
 
-                    <Button loading variant="solid" style={{ backgroundColor: "rgba(128, 0, 128, 0.2)", width: "8rem", marginLeft: "5rem" }}>
-                        Price: 1500
+                    <Button onClick={handleQuantity} loading variant="solid" style={{ backgroundColor: "rgba(173, 166, 19, 0.2)", width: "8rem", marginLeft: "5rem" }}>
+                        Quantity: {realquantity}
+                    </Button>
+
+                    <Button onClick={handlePrice} loading variant="solid" style={{ backgroundColor: "rgba(128, 0, 128, 0.2)", width: "8rem", marginLeft: "5rem" }}>
+                        price: {realprice} credits
                     </Button>
 
                 </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import Register from "./pages/auth/Register";
@@ -10,7 +10,10 @@ import Dashboard_admin from "./pages/Dashboard_admin";
 import Credit from "./pages/Credit/Credit";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+
 root.render(
+  
   <React.StrictMode>
     <BrowserRouter>
       <Routes>

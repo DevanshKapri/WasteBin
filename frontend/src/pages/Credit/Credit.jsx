@@ -26,6 +26,9 @@ import PieChart from './comp/PieChart';
 import Table from './comp/Table_comp';
 import Table_comp from './comp/Table_comp';
 import { DonorForm } from './comp/Form';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 // import UserDistance from './UserDistance';
 const drawerWidth = 240;
@@ -97,6 +100,20 @@ const Drawer = styled(MuiDrawer, {
 
 const Credit = () => {
 
+    const [proData, setProData] = useState([])
+
+    const getProductData = async () => {
+        let info = await axios.get("http://localhost:8000/getAllProducts")
+        try {
+            setProData(info.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getProductData()
+    }, [])
 
 
 
@@ -111,15 +128,17 @@ const Credit = () => {
         setOpen(false);
     };
 
+    const [score,setScore] = useState(5)
+
     return (
         <>
 
-            <Typography variant="h2" noWrap component="div" style={{marginTop: "10rem" , textAlign: "center"}}>
-                Welcome, User!
+            <Typography variant="h2" noWrap component="div" style={{ marginTop: "10rem", textAlign: "center" }}>
+                Welcome to the recyclable product's shop!
             </Typography>
 
-            <Typography variant="h4" noWrap component="div" style={{textAlign: "center",marginTop: "2rem"}}>
-                Your Current Credit Score is: 10
+            <Typography variant="h4" noWrap component="div" style={{ textAlign: "center", marginTop: "2rem" }}>
+                Your Current Credit Score is: {score}
             </Typography>
 
             <Box sx={{ display: "flex" }}>
@@ -216,7 +235,29 @@ const Credit = () => {
 
                 <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                     <DrawerHeader />
+
+
                     <Grid container spacing={6}>
+                        {proData.map((products) => {
+                            return (
+                                <>
+
+                                    <Grid_comp
+                                        title={products.name}
+                                        desc={products.description}
+                                        imgurl={products.imgurl}
+                                        price={products.price}
+                                        quantity={products.quantity} 
+                                        score = {score}
+                                        setScore = {setScore}/>
+
+                                </>
+                            )
+                        })}
+
+                    </Grid>
+
+                    {/* <Grid container spacing={6}>
                         <Grid_comp />
                         <Grid_comp />
                         <Grid_comp />
@@ -235,7 +276,7 @@ const Credit = () => {
                         <Grid_comp />
                         <Grid_comp />
 
-                    </Grid>
+                    </Grid> */}
 
 
                 </Box>

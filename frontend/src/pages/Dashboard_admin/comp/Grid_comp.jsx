@@ -15,7 +15,7 @@ const Grid_comp = () => {
     
 
     return (
-        <div className="widget">
+        <div className="widget" style={{height: "15rem"}}>
             <div className="left">
                 <span className="title" style={{fontSize: "1.2rem"}}>BALANCE</span>
                 <span className="counter">

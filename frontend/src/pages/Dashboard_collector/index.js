@@ -35,6 +35,9 @@ import UserDistance from "./UserDistance";
 import axios from "axios";
 import { useState } from "react";
 import haversine from "haversine";
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import socket from '../../socket';
 
 const drawerWidth = 240;
 
@@ -107,8 +110,14 @@ const Dashboard_collector = () => {
   const navigate = useNavigate();
   const [requests, setRequests] = React.useState([]);
   const [user, setUser] = React.useState([]);
+  const [isNot, setIsNot] = React.useState(false);
   const [longitude, setlongitude] = useState(0);
   const [latitude, setlatitude] = useState(0);
+  socket.emit('join_room', 'room2')
+  socket.on('newRequest', () => {
+    console.log('frontend new request');
+    setIsNot(true);
+  })
   const getRequests = async () => {
     await axios
       .get("http://localhost:8000/getRequests")
@@ -174,6 +183,8 @@ const Dashboard_collector = () => {
     setOpen(false);
   };
 
+
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -194,6 +205,14 @@ const Dashboard_collector = () => {
           <Typography variant="h6" noWrap component="div">
             Waste Bin
           </Typography>
+          <IconButton 
+            sx = {{float : "right"}}
+            onClick = {() => {
+              setIsNot(false);
+            }}
+            >
+            {isNot ? <NotificationsActiveIcon  sx = {{color : "white"}}/> : <NotificationsIcon sx = {{color : "white"}}/>}
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -289,7 +308,7 @@ const Dashboard_collector = () => {
         </div>
 
         {/* <CollectorSchedule /> */}
-        <UserDistance data={requests} getRequests = {getRequests} email= {user.email}/>
+        <UserDistance data={requests} getRequests = {getRequests} email= {user?.email}/>
       </Box>
     </Box>
   );

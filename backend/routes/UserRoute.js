@@ -3,19 +3,9 @@ const router = express.Router();
 const User = require("../models/UserModel");
 const Request = require("../models/RequestModel");
 
-router.post("/getDetail", async (req, res) => {
-  const data = req.body;
-  const user = await User.findOne({ _id: data._id });
-  if (user) {
-    return res.status(200).json(user);
-  } else {
-    console.log("User does not exist");
-    return res.status(400).json({ error: "User does not exist" });
-  }
-});
 router.post("/register", async (req, res) => {
   const data = req.body;
-  console.log(data.role);
+  // console.log(data.role)
   const user = await User.findOne({ email: data.email });
 
   if (user) {
@@ -32,7 +22,7 @@ router.post("/register", async (req, res) => {
     await user
       .save()
       .then((user) => {
-        console.log(user);
+        // console.log(user)
         return res.status(200).json(user);
       })
       .catch((err) => {
@@ -47,7 +37,19 @@ router.post("/login", async (req, res) => {
 
   const user = await User.findOne({ email: data.email });
   if (user) {
-    console.log(user);
+    // console.log(user)
+    return res.status(200).json(user);
+  } else {
+    console.log("User does not exist");
+    return res.status(400).json({ error: "User does not exist" });
+  }
+});
+
+router.post("/getDetail", async (req, res) => {
+  const data = req.body;
+  const user = await User.findOne({ _id: data._id });
+  if (user) {
+    // console.log(user)
     return res.status(200).json(user);
   } else {
     console.log("User does not exist");

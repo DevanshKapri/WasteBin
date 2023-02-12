@@ -5,10 +5,40 @@ const UserRoute = require("./routes/UserRoute");
 const AdminRoute = require("./routes/AdminRoute");
 const RequestRoute = require("./routes/RequestRoute");
 const db = require("./db");
-dotenv.config();
 const app = express();
+const http = require("http");
+const { Server } = require("socket.io");
+
+dotenv.config();
+
 app.use(cors());
 app.use(express.json());
+
+const server = http.createServer(app);
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("a user connected " + socket.id);
+  socket.on("join_room", (room) => {
+    socket.join(room);
+    console.log("joined room " + room);
+  });
+
+  socket.on("newRequest", (data) => {
+    console.log("reached backend");
+    io.to(data).emit("newRequest", data);
+  });
+
+  socket.on("requestAccepted", (data) => {
+    io.to(data).emit(data, "room1");
+  });
+});
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -22,6 +52,6 @@ app.use("/", RequestRoute);
 
 const PORT = process.env.PORT || 8000;
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);
 });
