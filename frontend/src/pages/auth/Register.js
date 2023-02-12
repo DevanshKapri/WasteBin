@@ -49,6 +49,8 @@ export default function Register() {
         setUser(response.data);
         if(response.data.role === 'collector'){
           socket.emit('join_room', 'room2')
+          alert('Please wait for the admin to approve your request for signing in as a collector and login after sometime')
+          navigate('/');
         }
         else{
           socket.emit('join_room', 'room1')
@@ -56,8 +58,18 @@ export default function Register() {
         navigate('/dashboard')
       })
       .catch((error) => {
-        console.log(error);
-        setErrorMessage(error);
+        if (error.response) {
+            // Request made and server responded
+            setErrorMessage(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            // The request was made but no response was received
+            setErrorMessage(error.request);
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            setErrorMessage(error.message);
+        }
       });
   };
 
@@ -68,7 +80,7 @@ export default function Register() {
    await createUserWithEmailAndPassword(auth, state.email, state.password)
       .then((userCredential) => {
         setToken(userCredential.user.accessToken);
-        setErrorMessage("User signed successfully");
+        // setErrorMessage("User signed successfully");
         localStorage.setItem(
           "token",
           JSON.stringify(userCredential.user.accessToken)
