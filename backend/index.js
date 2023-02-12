@@ -36,7 +36,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("requestAccepted", (data) => {
-    io.to(data).emit(data, "room1");
+    io.to("room1").emit( "requestAccepted",data);
   });
 });
 

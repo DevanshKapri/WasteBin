@@ -132,9 +132,11 @@ const Dashboard = () => {
 
   socket.emit("join_room", "room1");
   socket.on("requestAccepted", (data) => {
-    console.log(data);
-    setIsNot(true);
-    setNote(data);
+    if(data.email === user.email){
+      console.log(data);
+      setIsNot(true);
+      setNote(data);
+    }
   });
   const getRequests = async () => {
     await axios
@@ -228,7 +230,7 @@ const Dashboard = () => {
                   Notifications
                 </Typography>
                 <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                  {!isNot ? "No new notification" : `${note.email}`}
+                  {isNot ? `${note.email}`:"No new notification"}
                 </Typography>
               </Box>
             </Fade>
@@ -375,7 +377,7 @@ const Dashboard = () => {
           >
             Request for Waste Collection
           </h2>
-          <DonorForm />
+          <DonorForm getRequests = {getRequests} />
           <div />
         </div>
         <div style={{ marginTop: "7rem" }}>

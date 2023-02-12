@@ -4,6 +4,9 @@ import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PersonIcon from "@mui/icons-material/Person";
+import LogoutIcon from "@mui/icons-material/Logout";
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
@@ -202,7 +205,49 @@ const Credit = () => {
                     </DrawerHeader>
                     <Divider />
                     <List>
-                        <ListItemButton
+                    <ListItemButton
+            sx={{
+              minHeight: 48,
+              justifyContent: open ? "initial" : "center",
+              px: 2.5,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : "auto",
+                justifyContent: "center",
+              }}
+            >
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
+          </ListItemButton>
+          <ListItemButton
+            sx={{
+              minHeight: 48,
+              justifyContent: open ? "initial" : "center",
+              px: 2.5,
+            }}
+            onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("user");
+              navigate("/");
+              console.log("logout");
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : "auto",
+                justifyContent: "center",
+              }}
+            >
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
+          </ListItemButton>
+                        {/* <ListItemButton
                             sx={{
                                 minHeight: 48,
                                 justifyContent: open ? "initial" : "center",
@@ -255,7 +300,7 @@ const Credit = () => {
                                 <InboxIcon />
                             </ListItemIcon>
                             <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
-                        </ListItemButton>
+                        </ListItemButton> */}
                     </List>
                 </Drawer>
 
