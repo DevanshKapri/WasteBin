@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { FcCheckmark } from "react-icons/fc";
 import { RxCross1 } from "react-icons/rx";
-export default function CollectorResponse() {
+import axios from "axios";
+export default function CollectorResponse({data, email, getData}) {
+  console.log(email)
   const [collectorArr, setCollectorArr] = useState([
     { name: "abcd", email: "jgh5j@gmail.com", phone: "9414461366" },
     { name: "wxyz", email: "rkobgjv@gmail.com", phone: "9414454553" },
@@ -26,32 +28,46 @@ export default function CollectorResponse() {
         </thead>
 
         <tbody id="tableBody">
-          {collectorArr.map((collector, index) => (
+          {data?.map((collector, index) => (
             <tr>
               <td>{index + 1}</td>
               <td>{collector.name}</td>
               <td>{collector.email}</td>
-              <td>{collector.phone}</td>
+              <td>{collector.number}</td>
               <td>
                 <button
                   style={{ marginRight: "20px" }}
-                  onClick={() => {
+                  onClick={async() => {
                     console.log("Collector approved successfully");
-                    setCollectorArr(
-                      collectorArr.filter(
-                        (item) => item.email !== collector.email
-                      )
-                    );
+                    await axios.post('http://localhost:8000/verifyCollector', {
+                      email : email,
+                      collectorId : collector._id
+                  })
+                  .then(res => {
+                    console.log(res);
+                    getData(email)
+                  })
+                  .catch(err => {
+                    console.log(err);
+                  })
                   }}
                 >
                   <FcCheckmark fontSize="1.4em" />
                 </button>
                 <button
-                  onClick={() => {
-                    console.log("Collector rejected successfully");
-                    setCollectorArr(
-                      collectorArr.filter((item) => item.sno !== collector.sno)
-                    );
+                  onClick={async() => {
+                    console.log("Collector approved successfully");
+                    await axios.post('http://localhost:8000/rejectCollector', {
+                      email : email,
+                      collectorId : collector._id
+                  })
+                  .then(res => {
+                    console.log(res);
+                    getData(email)
+                  })
+                  .catch(err => {
+                    console.log(err);
+                  })
                   }}
                 >
                   <RxCross1 color="red" fontSize="1.4em" />

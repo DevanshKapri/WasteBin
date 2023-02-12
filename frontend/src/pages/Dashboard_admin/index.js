@@ -28,7 +28,8 @@ import Table_comp from './comp/Table_comp';
 import { DonorForm } from './comp/Form';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CollectorSchedule from '../Dashboard/CollectorSchedule';
+import CollectorVerify from './CollectorVerify';
+import axios from 'axios';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -98,15 +99,37 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const Dashboard_admin = () => {
   const navigate = useNavigate();
+  const [user, setUser] = React.useState();
+  const [data, setData] = React.useState();
+
+  const getData = async(email) => {
+    await axios.post('http://localhost:8000/getAllCollectors', {
+      email 
+    })
+    .then(res => {
+      const mid = res.data.filter((item) => item.status === 'unverified');
+      return mid;
+    })
+    .then(res => {
+      console.log(res);
+      setData(res);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
     const User = JSON.parse(localStorage.getItem('user'));
-    if (token) {
+    if (token && User && User.role === 'admin') {
+      setUser(User);
+      getData(User.email);
     }
     else
       navigate('/');
-    if (User.role === 'collector' && User.status === 'unverified')
-      navigate('/');
+    // if (User.role === 'collector' && User.status === 'unverified')
+    //   navigate('/');
   }, [])
 
   const theme = useTheme();
@@ -225,7 +248,8 @@ const Dashboard_admin = () => {
         </div>
 
         <div className="schedule" style={{marginTop: "7rem"}}>
-          <CollectorSchedule />
+          {/* <CollectorSchedule /> */}
+          <CollectorVerify data = {data} email = {user?.email} getData = {getData}/>
         </div>
 
       </Box>

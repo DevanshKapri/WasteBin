@@ -20,7 +20,7 @@ const userSchema = new Schema({
     },
     status : {
         type : String,
-        default : 'unverified' // unverified verified
+        default : 'unverified' // unverified verified rejected
     },
     requests: [
         {

@@ -191,7 +191,7 @@ iframe {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: #4272D7
+  background-color: #4272d7;
 }
 
 .wrap-login100 {
@@ -316,7 +316,7 @@ iframe {
 
 .input100:focus + .focus-input100::after {
   left: 23px;
-  color: #d41872;
+  color: #2883d2;
 }
 
 .input100:focus + .focus-input100::before {
@@ -325,7 +325,7 @@ iframe {
 
 .has-val.input100 + .focus-input100::after {
   left: 23px;
-  color: #d41872;
+  color: #2883d2;
 }
 
 .has-val.input100 + .focus-input100::before {
@@ -366,7 +366,7 @@ iframe {
   height: 42px;
   border-radius: 21px;
 
-  background: #4272D7;
+  background: #4272d7;
   background: -webkit-linear-gradient(left, #a445b2, #d41872, #fa4299);
   background: -o-linear-gradient(left, #a445b2, #d41872, #fa4299);
   background: -moz-linear-gradient(left, #a445b2, #d41872, #fa4299);

@@ -156,8 +156,8 @@ const Dashboard_collector = () => {
     const token = JSON.parse(localStorage.getItem("token"));
     const User = JSON.parse(localStorage.getItem("user"));
     if (token && User.role === "collector" && User.status === "verified") {
-      setUser(User);
     }
+    setUser(User);
     getRequests();
     // else
     //   navigate('/');
@@ -289,7 +289,7 @@ const Dashboard_collector = () => {
         </div>
 
         {/* <CollectorSchedule /> */}
-        <UserDistance data={requests} />
+        <UserDistance data={requests} getRequests = {getRequests} email= {user.email}/>
       </Box>
     </Box>
   );
