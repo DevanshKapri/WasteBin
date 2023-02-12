@@ -31,13 +31,18 @@ import { useNavigate } from "react-router-dom";
 import UserRequests from "./UserRequests";
 import HistoryIcon from "@mui/icons-material/History";
 import axios from "axios";
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import PersonIcon from '@mui/icons-material/Person';
-import LogoutIcon from '@mui/icons-material/Logout';
-import socket from '../../socket';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { useState } from "react";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PersonIcon from "@mui/icons-material/Person";
+import LogoutIcon from "@mui/icons-material/Logout";
+import socket from "../../socket";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import Backdrop from "@mui/material/Backdrop";
+// import Box from '@mui/material/Box';
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
+import Button from "@mui/material/Button";
+import NotificationAddIcon from "@mui/icons-material/NotificationAdd";
 // import UserDistance from './UserDistance';
 const drawerWidth = 240;
 
@@ -167,26 +172,13 @@ const Dashboard = () => {
     setOpen(false);
   };
 
-  const User_data = localStorage.getItem("user");
-  console.log(User_data)
-  console.log(user.email)
+  const [open1, setOpen1] = React.useState(false);
+  const handleOpen = () => {
+    setOpen1(true);
+    setIsNot(false);
+  };
 
-  const [credits,setCredits] = useState(5)
-
-  const handleCredits = async () => {
-    let info = await axios.post("http://localhost:8000/getCredit" , {email: user.email})
-      setCredits(info.data)
-    try {
-      console.log(info)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  handleCredits()
-
-  console.log(credits.credit)
- 
+  const handleClose = () => setOpen1(false);
 
   const User_details = JSON.parse(localStorage.getItem("user"));
 
@@ -345,8 +337,9 @@ const Dashboard = () => {
             header={`Congratulations , ${User_details.name}!`}
             subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
             button="Redeem Credits"
-            credits = {credits.credit} />
-          {/* <Grid_comp header="Congratulations , User!"
+          />
+          {/* <Grid_comp
+            header="Congratulations , User!"
             subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
             button="Redeem Credits"
           />
