@@ -31,6 +31,8 @@ import { useNavigate } from 'react-router-dom';
 import CollectorVerify from './CollectorVerify';
 import axios from 'axios';
 import { useState } from 'react';
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -194,7 +196,7 @@ const Dashboard_admin = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItemButton
+          {/* <ListItemButton
             sx={{
               minHeight: 48,
               justifyContent: open ? 'initial' : 'center',
@@ -211,7 +213,7 @@ const Dashboard_admin = () => {
               <InboxIcon />
             </ListItemIcon>
             <ListItemText primary="History" sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
+          </ListItemButton> */}
           <ListItemButton
             sx={{
               minHeight: 48,
@@ -226,7 +228,7 @@ const Dashboard_admin = () => {
                 justifyContent: 'center',
               }}
             >
-              <InboxIcon />
+              <PersonIcon />
             </ListItemIcon>
             <ListItemText primary="Profile" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
@@ -236,6 +238,12 @@ const Dashboard_admin = () => {
               justifyContent: open ? 'initial' : 'center',
               px: 2.5,
             }}
+            onClick={() => {
+              localStorage.removeItem('token');
+              localStorage.removeItem('user');
+              navigate('/');
+              console.log('logout');
+            }}
           >
             <ListItemIcon
               sx={{
@@ -244,7 +252,7 @@ const Dashboard_admin = () => {
                 justifyContent: 'center',
               }}
             >
-              <InboxIcon />
+              <LogoutIcon />
             </ListItemIcon>
             <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>

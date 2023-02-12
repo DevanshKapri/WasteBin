@@ -141,7 +141,7 @@ const Dashboard = () => {
     } else navigate("/");
     if (User.role === "collector" && User.status === "unverified")
       navigate("/");
-  }, []);
+  }, []); 
 
   const data = requests.filter((item) => item.user === user._id);
   console.log(data);

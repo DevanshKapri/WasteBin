@@ -31,6 +31,8 @@ import { useNavigate } from "react-router-dom";
 import Cal_comp_pick from "../../Components/calendar/Cal_comp_pick";
 import CollectorSchedule from "../Dashboard/CollectorSchedule";
 import CollectorResponse from "../Dashboard/UserDistance";
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
 import UserDistance from "./UserDistance";
 import axios from "axios";
 import { useState } from "react";
@@ -38,6 +40,9 @@ import haversine from "haversine";
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import socket from '../../socket';
+import HistoryIcon from '@mui/icons-material/History';
+// import axios from "axios";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 const drawerWidth = 240;
 
@@ -241,7 +246,25 @@ const Dashboard_collector = () => {
                 justifyContent: "center",
               }}
             >
-              <InboxIcon />
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
+          </ListItemButton>
+          <ListItemButton
+            sx={{
+              minHeight: 48,
+              justifyContent: open ? "initial" : "center",
+              px: 2.5,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : "auto",
+                justifyContent: "center",
+              }}
+            >
+              <HistoryIcon />
             </ListItemIcon>
             <ListItemText primary="History" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
@@ -259,7 +282,7 @@ const Dashboard_collector = () => {
                 justifyContent: "center",
               }}
             >
-              <InboxIcon />
+              <PersonIcon />
             </ListItemIcon>
             <ListItemText primary="Profile" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
@@ -269,6 +292,12 @@ const Dashboard_collector = () => {
               justifyContent: open ? "initial" : "center",
               px: 2.5,
             }}
+            onClick={() => {
+              localStorage.removeItem('token');
+              localStorage.removeItem('user');
+              navigate('/');
+              console.log('logout');
+            }}
           >
             <ListItemIcon
               sx={{
@@ -277,7 +306,7 @@ const Dashboard_collector = () => {
                 justifyContent: "center",
               }}
             >
-              <InboxIcon />
+              <LogoutIcon />
             </ListItemIcon>
             <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
@@ -308,6 +337,7 @@ const Dashboard_collector = () => {
         </div>
 
         {/* <CollectorSchedule /> */}
+        <Typography variant="h3" sx={{ mt: 3, mb: 1, width : "100%", textAlign: 'center', paddingBottom: '30px' }}> Schedule the Request </Typography>
         <UserDistance data={requests} getRequests = {getRequests} email= {user?.email}/>
       </Box>
     </Box>
