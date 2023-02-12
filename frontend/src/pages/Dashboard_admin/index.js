@@ -242,9 +242,11 @@ const Dashboard_admin = () => {
           <Chart />
         </div>
 
-        <div className="Form" style={{ position: "relative", top: "8rem" }}>
-          <h2 style={{ position: "relative", top: "-1rem" }}>Enter Details of the product</h2>
-          <DonorForm />
+        <div>
+          <div className="Form" style={{ position: "relative", top: "8rem" , border: "1px solid black", padding: "40px", width: '100%'}}>
+            <h2 style={{ position: "relative", top: "-1rem", textAlign : "center" }}>Enter Details of the product</h2>
+            <DonorForm />
+          </div>
         </div>
 
         <div className="schedule" style={{marginTop: "7rem"}}>

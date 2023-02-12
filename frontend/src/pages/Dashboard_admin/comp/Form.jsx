@@ -122,10 +122,21 @@ export const DonorForm = () => {
 
     return (
         <>
-            <div className='donorForm'>
+            <div className='donorForm' style = {{
+                width : '100%',
+                display : 'flex',
+                flexDirection : 'column',
+                justifyContent : 'center',
+                alignItems : 'center',
+            }}>
                 <div className='form-css'>
 
-                    <div className="form-row">
+                    <div className="form-row" style = {{
+                        display : 'flex',
+                        flexDirection : 'column',
+                        justifyContent : 'center',
+                        alignItems : 'center',
+                    }}>
                         <div className="form-group col-md-6">
                             <input type="text" className="form-control" id="inputEmail4" onChange={(event) => setTitle(event.target.value)} placeholder="Title of the product" />
                         </div>
@@ -133,25 +144,51 @@ export const DonorForm = () => {
 
 
 
-                    <div className="form-row">
+                    <div className="form-row" style = {{
+                        display : 'flex',
+                        flexDirection : 'column',
+                        justifyContent : 'center',
+                        alignItems : 'center',
+                    }}>
                         <div className="form-group col-md-6">
                             <input type="text" className="form-control" id="inputEmail4" onChange={(event) => setDesc(event.target.value)} placeholder="Description of the Product" />
                         </div>
                     </div>
 
-                    <div className="form-row">
-                        <div className="form-group col-md-6">
+                    <div className="form-row" style = {{
+                        display : 'flex',
+                        flexDirection : 'column',
+                        justifyContent : 'center',
+                        alignItems : 'center',
+                    }}>
+                        <div className="form-group col-md-6" style = {{
+                        display : 'flex',
+                        flexDirection : 'column',
+                        justifyContent : 'center',
+                        alignItems : 'center',
+                    }}>
                             <input type="text" className="form-control" id="inputEmail4" onChange={(event) => setQuantity(event.target.value)} placeholder="Quantity of the product" />
                         </div>
                     </div>
 
-                    <div className="form-row">
+                    <div className="form-row" style = {{
+                        display : 'flex',
+                        flexDirection : 'column',
+                        justifyContent : 'center',
+                        alignItems : 'center',
+                    }}>
                         <div className="form-group col-md-6">
                             <input type="text" className="form-control" id="inputEmail4" onChange={(event) => setPrice(event.target.value)} placeholder="Price of the product" />
                         </div>
                     </div>
 
-                    <div className="form-row">
+                    <div className="form-row" style = {{
+                        display : 'flex',
+                        flexDirection : 'column',
+                        justifyContent : 'center',
+                        alignItems : 'center',
+                        width: '100%'
+                    }}>
 
                         <div>
                             <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Upload Product Image</label> <br />
@@ -159,14 +196,28 @@ export const DonorForm = () => {
                             <input type="file" onChange={handleChange} accept="/image/*" />
                             <br />
                             <br />
-                            <button onClick={handleUpload}>Upload to Firebase</button>
+                            <button onClick={handleUpload} style = {{
+                                // border : '2px solid black',
+                                padding : '5px 10px',
+                                color: 'white',
+                                borderRadius : '5px',
+                                backgroundColor : '#0069D9',
+                            }}>Upload</button>
                         </div>
 
 
                     </div>
                     <br />
-
+                    <div style = {{
+                        display : 'flex',
+                        flexDirection : 'column',
+                        justifyContent : 'center',
+                        alignItems : 'center',
+                        width: '100%'
+                    }}>
+                        
                     <button type="submit" className="btn btn-primary" onClick={handlesubmit}>Submit</button>
+                    </div>
                 </div>
 
             </div>
