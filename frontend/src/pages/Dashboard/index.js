@@ -37,8 +37,26 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import socket from '../../socket';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import Backdrop from '@mui/material/Backdrop';
+// import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import Button from '@mui/material/Button';
+import NotificationAddIcon from '@mui/icons-material/NotificationAdd';
 // import UserDistance from './UserDistance';
 const drawerWidth = 240;
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -133,13 +151,11 @@ const Dashboard = () => {
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
     const User = JSON.parse(localStorage.getItem("user"));
-    if (token && User) {
+    if (token && User && User.role === "User") {
       setUser(User);
-      if (User.role === "User") {
-        getRequests();
-      }
-    } else navigate("/");
-    if (User.role === "collector" && User.status === "unverified")
+      getRequests();
+    } 
+    else 
       navigate("/");
   }, []); 
 
@@ -156,7 +172,13 @@ const Dashboard = () => {
     setOpen(false);
   };
 
- 
+  const [open1, setOpen1] = React.useState(false);
+  const handleOpen = () => {
+    setOpen1(true);
+    setIsNot(false);
+  };
+
+  const handleClose = () => setOpen1(false);
   
 
  
@@ -185,12 +207,32 @@ const Dashboard = () => {
           </Typography>
           <IconButton 
             sx = {{float : "right"}}
-            onClick = {() => {
-              setIsNot(false);
-            }}
+            onClick =  {handleOpen}
             >
-            {isNot ? <NotificationsActiveIcon  sx = {{color : "white"}}/> : <NotificationsIcon sx = {{color : "white"}}/>}
+            {isNot ? <NotificationAddIcon  sx = {{color : "white"}}/> : <NotificationsIcon sx = {{color : "white"}}/>}
           </IconButton>
+              <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            open={open1}
+            onClose={handleClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Fade in={open1}>
+              <Box sx={style}>
+                <Typography id="transition-modal-title" variant="h4" component="h2">
+                  Notifications
+                </Typography>
+                <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                  {(!isNot) ? "No new notification" : `${note.email}`}
+                </Typography>
+              </Box>
+            </Fade>
+          </Modal>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

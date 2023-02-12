@@ -36,7 +36,7 @@ export default function UserRequests(props) {
                     borderStyle: "solid",
                     borderRadius: "15px",
                     backgroundColor:
-                      user.status === "Pending" ? "#e66e6e" : "#70d156",
+                      user.status === "pending" ? "#e66e6e" : "#70d156",
                     maxWidth: "100px",
                     textAlign: "center",
                   }}

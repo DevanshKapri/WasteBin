@@ -189,11 +189,11 @@ const Dashboard_collector = () => {
     const token = JSON.parse(localStorage.getItem("token"));
     const User = JSON.parse(localStorage.getItem("user"));
     if (token && User.role === "collector" && User.status === "verified") {
+      setUser(User);
+      getRequests();
     }
-    setUser(User);
-    getRequests();
-    // else
-    //   navigate('/');
+    else
+      navigate('/');
   }, []);
 
   const theme = useTheme();

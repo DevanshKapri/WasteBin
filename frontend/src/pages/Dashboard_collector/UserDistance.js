@@ -97,7 +97,7 @@ export default function CollectorResponse(props) {
                       .then((res) => {
                         console.log(res);
                         socket.emit("requestAccepted", {
-                          Datetime,
+                          Datetime: Datetime,
                           user: user.user,
                           email: props.email,
                         });
