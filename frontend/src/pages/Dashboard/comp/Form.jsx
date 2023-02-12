@@ -162,7 +162,7 @@ export const DonorForm = () => {
                     <div className="form-row">
                         <div className="form-group col-md-6">
                             <label for="inputEmail4">Message</label>
-                            <input type="text" className="form-control" id="inputEmail4" onChange={(event) => setMessage(event.target.value)} placeholder="Name of organization" />
+                            <input type="text" className="form-control" id="inputEmail4" onChange={(event) => setMessage(event.target.value)} placeholder="Write a message" />
                         </div>
 
                     </div>

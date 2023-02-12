@@ -106,6 +106,8 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [requests, setRequests] = React.useState([]);
   const [user, setUser] = React.useState([]);
+
+  
   const getRequests = async () => {
     await axios
       .get("http://localhost:8000/getRequests")
@@ -143,6 +145,8 @@ const Dashboard = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const User_details = JSON.parse(localStorage.getItem("user"));
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -262,7 +266,7 @@ const Dashboard = () => {
         <DrawerHeader />
         
         <Grid container spacing={6}>
-          <Grid_comp header="Congratulations , User!"
+          <Grid_comp header = {`Congratulations , ${User_details.name}!`}
             subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
             button="Redeem Credits" />
           <Grid_comp header="Congratulations , User!"
