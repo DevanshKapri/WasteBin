@@ -38,24 +38,14 @@ const localizer = dateFnsLocalizer({
 //     },
 // ];
 
-
-
 function Cal_comp_pick(props) {
-
   const [allEvent, setAllEvent] = useState([]);
 
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
   let allEvents = [];
 
-  // React.useEffect(() => {
-    
-  // })
-  
-
   const handleAddEvent = async () => {
     let requests = [];
-    let approveTime = [];
-    let names = [];
     // console.log(props.user);
     await axios
       .post("http://localhost:8000/getDetail", {
@@ -75,24 +65,15 @@ function Cal_comp_pick(props) {
           _id: id,
         })
         .then((res) => {
+          let name = "unknown";
           if (res.data) {
-            names.push(res.data.name);
-          } else {
-            names.push("unknown");
+            name = res.data.name;
           }
-          approveTime.push(
-            time
-            // `${time.getFullYear()}-${
-            //   time.getMonth() + 1
-            // }-${time.getDate()}T${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
-          );
-          for (let i = 0; i < names.length; i++) {
-            allEvents.push({
-              title: names[i],
-              start: approveTime[i],
-              end: approveTime[i],
-            });
-          }
+          allEvents.push({
+            title: name,
+            start: time,
+            end: time,
+          });
           setAllEvent(allEvents);
         })
         .catch((err) => {
@@ -111,7 +92,7 @@ function Cal_comp_pick(props) {
             date = new Date(date.setDate(date.getDate() + res.data.prediction));
             // console.log(date);
             // console.log(res.data.prediction);
-            updateArr(id, time);
+            updateArr(id, date);
           }
         })
         .catch((err) => {
@@ -139,13 +120,9 @@ function Cal_comp_pick(props) {
         });
     };
 
-
-    for (let i = 0; i < requests.length, i < 5; i++) {
+    for (let i = 0; i < requests.length; i++) {
       fetchRequestParams(requests[i]);
     }
-    console.log(names, approveTime);
-    
-    console.log(allEvents);
     for (let i = 0; i < allEvents.length; i++) {
       const d1 = new Date(allEvents[i].start);
       const d2 = new Date(newEvent.start);
@@ -163,14 +140,13 @@ function Cal_comp_pick(props) {
         break;
       }
     }
+    console.log(allEvents);
     // setAllEvents([...allEvents, newEvent]);
   };
-  
+
   React.useEffect(() => {
     handleAddEvent();
-  }, [props])
-
-  console.log(allEvent)
+  }, [props]);
 
   return (
     <div className="App">
