@@ -348,6 +348,17 @@ const Dashboard = () => {
           /> */}
         </Grid>
 
+        <h2
+          style={{
+            position: "relative",
+            marginTop: "3rem",
+            textAlign: "center",
+          }}
+        >
+          <span style={{ color: "#0075c4" }}>Tackling the Trash:</span>{" "}
+          Analyzing Our Progress in Waste Reduction
+        </h2>
+
         <div
           style={{
             display: "flex",
@@ -379,6 +390,15 @@ const Dashboard = () => {
           <div />
         </div>
         <div style={{ marginTop: "7rem" }}>
+          <h2
+            style={{
+              position: "relative",
+              marginTop: "15rem",
+              textAlign: "center",
+            }}
+          >
+            Know your Request Status
+          </h2>
           <UserRequests data={data} />
         </div>
       </Box>
