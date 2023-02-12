@@ -44,7 +44,11 @@ export default function UserRequests(props) {
                   {user.status}
                 </div>
               </td>
-              <td>1</td>
+              <td>
+                {user.wasteType == "Organic" || user.wasteType == "Recyclable"
+                  ? 1
+                  : 0}
+              </td>
             </tr>
           ))}
         </tbody>
