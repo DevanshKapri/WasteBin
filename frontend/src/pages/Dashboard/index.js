@@ -156,6 +156,11 @@ const Dashboard = () => {
     setOpen(false);
   };
 
+ 
+  
+
+ 
+
   const User_details = JSON.parse(localStorage.getItem("user"));
 
   return (
@@ -282,9 +287,9 @@ const Dashboard = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        
+
         <Grid container spacing={6}>
-          <Grid_comp header = {`Congratulations , ${User_details.name}!`}
+          <Grid_comp header={`Congratulations , ${User_details.name}!`}
             subheader="You have earned this credits this month , You can redeem your credit by clicking the below button"
             button="Redeem Credits" />
           <Grid_comp header="Congratulations , User!"

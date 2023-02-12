@@ -30,6 +30,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CollectorVerify from './CollectorVerify';
 import axios from 'axios';
+import { useState } from 'react';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -143,6 +144,26 @@ const Dashboard_admin = () => {
     setOpen(false);
   };
 
+  const[count , setCount] = useState(0)
+
+  const handleapi = async () => {
+
+        let info = await axios.get("http://localhost:8000/getRequests")
+
+        try {
+          console.log(info.data)
+           setCount(info.data.length)
+        } catch (error) {
+          console.log(error)
+        }
+
+
+  }
+
+  handleapi()
+
+  // console.log(count)
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -232,7 +253,7 @@ const Dashboard_admin = () => {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <Grid container spacing={6}>
-          <Grid_comp />
+          <Grid_comp count = {count} />
           <Grid_comp />
           <Grid_comp />
         </Grid>
