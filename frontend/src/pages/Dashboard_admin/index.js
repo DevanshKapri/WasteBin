@@ -260,7 +260,7 @@ const Dashboard_admin = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Grid container spacing={6}>
+        <Grid container spacing={4} style={{width: "20rem"}}>
           <Grid_comp count = {count} />
         </Grid>
 
