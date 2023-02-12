@@ -262,8 +262,6 @@ const Dashboard_admin = () => {
         <DrawerHeader />
         <Grid container spacing={6}>
           <Grid_comp count = {count} />
-          <Grid_comp />
-          <Grid_comp />
         </Grid>
 
         <div style={{ display: "flex", padding: "10px 20px", gap: "20px", marignTop: "8rem" }}>
