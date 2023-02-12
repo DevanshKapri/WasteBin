@@ -316,8 +316,6 @@ const Dashboard_collector = () => {
         <DrawerHeader />
         <Grid container spacing={6}>
           <Grid_comp />
-          <Grid_comp />
-          <Grid_comp />
         </Grid>
 
         <div
