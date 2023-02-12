@@ -12,6 +12,7 @@ import "./vendor/login/select2/select2.min.css";
 import "./vendor/login/daterangepicker/daterangepicker.css";
 import "./css/login/util.css";
 import "./css/login/main.css";
+import  socket  from '../../socket';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {auth } from '../../firebase';
 
@@ -40,6 +41,12 @@ export default function Login(props) {
         localStorage.setItem('user', JSON.stringify(response.data));
         setUser(response.data)
         console.log(response.data);
+        if(response.data.role === 'collector'){
+          socket.emit('join_room', 'room2')
+        }
+        else{
+          socket.emit('join_room', 'room1')
+        }
         navigate('/dashboard')
       })
       .catch((error) => {

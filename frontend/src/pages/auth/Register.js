@@ -8,6 +8,7 @@ import "./css/register/main.css";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import {useNavigate} from 'react-router-dom'
+import socket from '../../socket'
 export default function Register() {
   const navigate = useNavigate();
   const [state, setState] = useState({
@@ -46,6 +47,12 @@ export default function Register() {
         console.log(response);
         localStorage.setItem("user", JSON.stringify(response.data));
         setUser(response.data);
+        if(response.data.role === 'collector'){
+          socket.emit('join_room', 'room2')
+        }
+        else{
+          socket.emit('join_room', 'room1')
+        }
         navigate('/dashboard')
       })
       .catch((error) => {

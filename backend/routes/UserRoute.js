@@ -5,7 +5,7 @@ const Request = require('../models/RequestModel');
 
 router.post('/register', async (req, res) => {
     const data = req.body
-    console.log(data.role)
+    // console.log(data.role)
     const user = await User.findOne({ email: data.email })
 
     if (user) {
@@ -22,7 +22,7 @@ router.post('/register', async (req, res) => {
         })
         await user.save()
             .then((user) => {
-                console.log(user)
+                // console.log(user)
                 return res.status(200).json(user)
             })
             .catch((err) => {
@@ -37,7 +37,7 @@ router.post('/login', async (req, res) => {
 
     const user = await User.findOne({ email: data.email })
     if (user) {
-        console.log(user)
+        // console.log(user)
         return res.status(200).json(user)
     }
     else {
