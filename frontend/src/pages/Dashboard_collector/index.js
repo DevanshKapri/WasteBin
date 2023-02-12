@@ -285,7 +285,7 @@ const Dashboard_collector = () => {
         </div>
 
         <div className="calendar" style={{ marginTop: "10rem" }}>
-          <Cal_comp_pick />
+          <Cal_comp_pick user={user._id}/>
         </div>
 
         {/* <CollectorSchedule /> */}

@@ -74,7 +74,7 @@ export default function CollectorResponse(props) {
                 onChange={handleChange}
               />
               <button
-                onClick={async(e) => {
+                onClick={async (e) => {
                   let Datetime = "";
                   e.preventDefault();
                   for (const [key, value] of Object.entries(state)) {
@@ -85,19 +85,21 @@ export default function CollectorResponse(props) {
                   }
                   if (Datetime != "") {
                     console.log("Request approved by collector");
+                    // console.log(Datetime);
                     // requests.filter((item) => item.user != user.user);
-                    await axios.post('http://localhost:8000/acceptRequest', {
-                      email: props.email,
-                      approveTime : Datetime,
-                      requestId: user._id,
-                    })
-                    .then((res) => {
-                      console.log(res);
-                      props.getRequests();
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
+                    await axios
+                      .post("http://localhost:8000/acceptRequest", {
+                        email: props.email,
+                        approveTime: Datetime,
+                        requestId: user._id,
+                      })
+                      .then((res) => {
+                        console.log(res);
+                        props.getRequests();
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
                     setRerender(true);
                   } else {
                     alert("Invalid date or time");
