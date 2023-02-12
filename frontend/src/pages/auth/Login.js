@@ -43,11 +43,24 @@ export default function Login(props) {
         console.log(response.data);
         if(response.data.role === 'collector'){
           socket.emit('join_room', 'room2')
+          if(response.data.status === 'unverified')
+          {
+            alert('Please wait for the admin to approve your request for signing in as a collector and login after sometime')
+            navigate('/');
+          }
+          else
+          {
+            navigate('/collector')
+          }
         }
-        else{
+        else if(response.data.role === 'User') {
           socket.emit('join_room', 'room1')
+          navigate('/dashboard')
         }
-        navigate('/dashboard')
+        else
+        {
+          navigate('/admin')
+        }
       })
       .catch((error) => {
         setErrorMessage(error);
@@ -67,7 +80,7 @@ export default function Login(props) {
     await signInWithEmailAndPassword(auth, state.email, state.password)
       .then((userCredential) => {
         setToken(userCredential.user.accessToken)
-        setErrorMessage('User signed successfully')
+        // setErrorMessage('User signed successfully')
         localStorage.setItem('token', JSON.stringify(userCredential.user.accessToken));
         console.log(userCredential.user.accessToken);
         SubmitMongo()
