@@ -11,6 +11,7 @@ import {
 } from "firebase/storage";
 import { useNavigate } from 'react-router-dom';
 import Modal_prop from '../../../Components/Modal_prop';
+import socket from '../../../socket';
 
 
 
@@ -46,6 +47,8 @@ export const DonorForm = () => {
 
     const [open, setOpen] = useState(false)
     const [wasteType, setwasteType] = useState('')
+
+    
 
 
 
@@ -141,7 +144,7 @@ export const DonorForm = () => {
         })
             .then((response) => {
                 console.log(response.data);
-
+                socket.emit('newRequest', 'room2')
             })
             .catch((err) => {
                 console.log(err)
@@ -159,7 +162,7 @@ export const DonorForm = () => {
                     <div className="form-row">
                         <div className="form-group col-md-6">
                             <label for="inputEmail4">Message</label>
-                            <input type="text" className="form-control" id="inputEmail4" onChange={(event) => setMessage(event.target.value)} placeholder="Name of organization" />
+                            <input type="text" className="form-control" id="inputEmail4" onChange={(event) => setMessage(event.target.value)} placeholder="Write a message" />
                         </div>
 
                     </div>

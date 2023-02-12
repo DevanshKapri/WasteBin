@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import Register from "./pages/auth/Register";
@@ -8,9 +8,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard_collector from "./pages/Dashboard_collector";
 import Dashboard_admin from "./pages/Dashboard_admin";
 import Credit from "./pages/Credit/Credit";
+// import { registerLicense } from '@syncfusion/ej2-base';
 
+// // Registering Syncfusion license key
+// registerLicense('ORg4AjUWIQA/Gnt2VVhkQlFacldJXnxIfUx0RWFab1p6dFFMZVVBJAtUQF1hSn5Rd0djWnpfcHNWQmVU');
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+
 root.render(
+
   <React.StrictMode>
     <BrowserRouter>
       <Routes>

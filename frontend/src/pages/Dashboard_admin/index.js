@@ -28,7 +28,11 @@ import Table_comp from './comp/Table_comp';
 import { DonorForm } from './comp/Form';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CollectorSchedule from '../Dashboard/CollectorSchedule';
+import CollectorVerify from './CollectorVerify';
+import axios from 'axios';
+import { useState } from 'react';
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -98,15 +102,37 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const Dashboard_admin = () => {
   const navigate = useNavigate();
+  const [user, setUser] = React.useState();
+  const [data, setData] = React.useState();
+
+  const getData = async(email) => {
+    await axios.post('http://localhost:8000/getAllCollectors', {
+      email 
+    })
+    .then(res => {
+      const mid = res.data.filter((item) => item.status === 'unverified');
+      return mid;
+    })
+    .then(res => {
+      console.log(res);
+      setData(res);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token'));
     const User = JSON.parse(localStorage.getItem('user'));
-    if (token) {
+    if (token && User && User.role === 'admin') {
+      setUser(User);
+      getData(User.email);
     }
     else
       navigate('/');
-    if (User.role === 'collector' && User.status === 'unverified')
-      navigate('/');
+    // if (User.role === 'collector' && User.status === 'unverified')
+    //   navigate('/');
   }, [])
 
   const theme = useTheme();
@@ -119,6 +145,26 @@ const Dashboard_admin = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const[count , setCount] = useState(0)
+
+  const handleapi = async () => {
+
+        let info = await axios.get("http://localhost:8000/getRequests")
+
+        try {
+          console.log(info.data)
+           setCount(info.data.length)
+        } catch (error) {
+          console.log(error)
+        }
+
+
+  }
+
+  handleapi()
+
+  // console.log(count)
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -150,7 +196,7 @@ const Dashboard_admin = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItemButton
+          {/* <ListItemButton
             sx={{
               minHeight: 48,
               justifyContent: open ? 'initial' : 'center',
@@ -167,7 +213,7 @@ const Dashboard_admin = () => {
               <InboxIcon />
             </ListItemIcon>
             <ListItemText primary="History" sx={{ opacity: open ? 1 : 0 }} />
-          </ListItemButton>
+          </ListItemButton> */}
           <ListItemButton
             sx={{
               minHeight: 48,
@@ -182,7 +228,7 @@ const Dashboard_admin = () => {
                 justifyContent: 'center',
               }}
             >
-              <InboxIcon />
+              <PersonIcon />
             </ListItemIcon>
             <ListItemText primary="Profile" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
@@ -192,6 +238,12 @@ const Dashboard_admin = () => {
               justifyContent: open ? 'initial' : 'center',
               px: 2.5,
             }}
+            onClick={() => {
+              localStorage.removeItem('token');
+              localStorage.removeItem('user');
+              navigate('/');
+              console.log('logout');
+            }}
           >
             <ListItemIcon
               sx={{
@@ -200,7 +252,7 @@ const Dashboard_admin = () => {
                 justifyContent: 'center',
               }}
             >
-              <InboxIcon />
+              <LogoutIcon />
             </ListItemIcon>
             <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
@@ -208,18 +260,27 @@ const Dashboard_admin = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Grid container spacing={6}>
-          <Grid_comp />
-          <Grid_comp />
-          <Grid_comp />
+        <Grid container spacing={4} style={{width: "20rem"}}>
+          <Grid_comp count = {count} />
         </Grid>
 
         <div style={{ display: "flex", padding: "10px 20px", gap: "20px", marignTop: "8rem" }}>
-          <PieChart  />
+          <PieChart />
           <Chart />
         </div>
 
-        <CollectorSchedule />
+        <div>
+          <div className="Form" style={{ position: "relative", top: "8rem" , border: "1px solid black", padding: "40px", width: '100%'}}>
+            <h2 style={{ position: "relative", top: "-1rem", textAlign : "center" }}>Enter Details of the product</h2>
+            <DonorForm />
+          </div>
+        </div>
+
+        <div className="schedule" style={{marginTop: "7rem"}}>
+          {/* <CollectorSchedule /> */}
+          <CollectorVerify data = {data} email = {user?.email} getData = {getData}/>
+        </div>
+
       </Box>
     </Box >
   );

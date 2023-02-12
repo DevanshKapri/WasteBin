@@ -20,7 +20,11 @@ const userSchema = new Schema({
     },
     status : {
         type : String,
-        default : 'unverified' // unverified verified
+        default : 'unverified' // unverified verified rejected
+    },
+    credit : {
+        type : Number,
+        default : 0
     },
     requests: [
         {

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import socket from "../../socket";
 
 export default function CollectorResponse(props) {
   // let data = [
@@ -45,9 +47,8 @@ export default function CollectorResponse(props) {
     }));
     // console.log(state);
   };
-  let data = props.data;
-  data.sort((a, b) => (a.distance > b.distance ? 1 : 0));
-  const [requests, setRequests] = useState(data);
+  const requests = props.data;
+  const [rerender, setRerender] = useState(false);
   const [state, setState] = useState([]);
   return (
     <div class="container-fluid row" style={{ marginLeft: "60px" }}>
@@ -59,9 +60,9 @@ export default function CollectorResponse(props) {
           <div class="card-body" style={{ width: "100%" }}>
             {/* <h5 class="card-title" id="title ${index}"><b>${element.noteTitle}</b></h5> */}
             <p class="card-text">Username:{user.user}</p>
-            <p class="card-text">Request Date:{user.updatedBy}</p>
+            <p class="card-text">Request Date:{user.updatedAt}</p>
             <p class="card-text">Waste Type:{user.wasteType}</p>
-            <p class="card-text">Message:{user.messageg}</p>
+            <p class="card-text">Message:{user.message}</p>
             <p class="card-text">Distance:{user.distance}</p>
             <hr />
             <form>
@@ -74,10 +75,7 @@ export default function CollectorResponse(props) {
                 onChange={handleChange}
               />
               <button
-                onClick={(e) => {
-                  // console.log(
-                  //   `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}T${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`
-                  // );
+                onClick={async (e) => {
                   let Datetime = "";
                   e.preventDefault();
                   for (const [key, value] of Object.entries(state)) {
@@ -88,9 +86,27 @@ export default function CollectorResponse(props) {
                   }
                   if (Datetime != "") {
                     console.log("Request approved by collector");
-                    setRequests(
-                      requests.filter((item) => item.user != user.user)
-                    );
+                    // console.log(Datetime);
+                    // requests.filter((item) => item.user != user.user);
+                    await axios
+                      .post("http://localhost:8000/acceptRequest", {
+                        email: props.email,
+                        approveTime: Datetime,
+                        requestId: user._id,
+                      })
+                      .then((res) => {
+                        console.log(res);
+                        socket.emit("requestAccepted", {
+                          Datetime: Datetime,
+                          user: user.user,
+                          email: props.email,
+                        });
+                        props.getRequests();
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
+                    setRerender(true);
                   } else {
                     alert("Invalid date or time");
                   }

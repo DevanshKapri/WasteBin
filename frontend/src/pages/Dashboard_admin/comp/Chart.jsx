@@ -14,38 +14,38 @@ import {
 
 const data = [
   {
-    "name": "Page A",
-    "uv": 4000,
+    "name": "January",
+    "waste-collected": 40,
     "pv": 2400
   },
   {
-    "name": "Page B",
-    "uv": 3000,
+    "name": "February",
+    "waste-collected": 30,
     "pv": 1398
   },
   {
-    "name": "Page C",
-    "uv": 2000,
+    "name": "March",
+    "waste-collected": 20,
     "pv": 9800
   },
   {
-    "name": "Page D",
-    "uv": 2780,
+    "name": "April",
+    "waste-collected": 27,
     "pv": 3908
   },
   {
-    "name": "Page E",
-    "uv": 1890,
+    "name": "May",
+    "waste-collected": 18,
     "pv": 4800
   },
   {
-    "name": "Page F",
-    "uv": 2390,
+    "name": "June",
+    "waste-collected": 23,
     "pv": 3800
   },
   {
-    "name": "Page G",
-    "uv": 3490,
+    "months": "July",
+    "waste-collected": 34,
     "pv": 4300
   }
 ]
@@ -61,8 +61,7 @@ const Chart = ({ aspect, title }) => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="pv" fill="#8884d8" />
-          <Bar dataKey="uv" fill="#82ca9d" />
+          <Bar dataKey="waste-collected" fill="#82ca9d" />
         </BarChart>
       </ResponsiveContainer>
     </div>

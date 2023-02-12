@@ -31,10 +31,37 @@ import { useNavigate } from "react-router-dom";
 import Cal_comp_pick from "../../Components/calendar/Cal_comp_pick";
 import CollectorSchedule from "../Dashboard/CollectorSchedule";
 import CollectorResponse from "../Dashboard/UserDistance";
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
 import UserDistance from "./UserDistance";
 import axios from "axios";
 import { useState } from "react";
 import haversine from "haversine";
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import socket from '../../socket';
+import HistoryIcon from '@mui/icons-material/History';
+// import axios from "axios";
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import Backdrop from '@mui/material/Backdrop';
+// import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import Button from '@mui/material/Button';
+import NotificationAddIcon from '@mui/icons-material/NotificationAdd';
+// import Typography from '@mui/material/Typography';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const drawerWidth = 240;
 
@@ -107,8 +134,14 @@ const Dashboard_collector = () => {
   const navigate = useNavigate();
   const [requests, setRequests] = React.useState([]);
   const [user, setUser] = React.useState([]);
+  const [isNot, setIsNot] = React.useState(false);
   const [longitude, setlongitude] = useState(0);
   const [latitude, setlatitude] = useState(0);
+  socket.emit('join_room', 'room2')
+  socket.on('newRequest', () => {
+    console.log('frontend new request');
+    setIsNot(true);
+  })
   const getRequests = async () => {
     await axios
       .get("http://localhost:8000/getRequests")
@@ -157,10 +190,10 @@ const Dashboard_collector = () => {
     const User = JSON.parse(localStorage.getItem("user"));
     if (token && User.role === "collector" && User.status === "verified") {
       setUser(User);
+      getRequests();
     }
-    getRequests();
-    // else
-    //   navigate('/');
+    else
+      navigate('/');
   }, []);
 
   const theme = useTheme();
@@ -173,6 +206,16 @@ const Dashboard_collector = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const [open1, setOpen1] = React.useState(false);
+  const handleOpen = () => {
+    setOpen1(true);
+    setIsNot(false);
+  };
+
+  const handleClose = () => setOpen1(false);
+
+
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -194,6 +237,34 @@ const Dashboard_collector = () => {
           <Typography variant="h6" noWrap component="div">
             Waste Bin
           </Typography>
+          <IconButton 
+            sx = {{float : "right"}}
+            onClick =  {handleOpen}
+            >
+            {isNot ? <NotificationAddIcon  sx = {{color : "white"}}/> : <NotificationsIcon sx = {{color : "white"}}/>}
+          </IconButton>
+              <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            open={open1}
+            onClose={handleClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Fade in={open1}>
+              <Box sx={style}>
+                <Typography id="transition-modal-title" variant="h4" component="h2">
+                  Notifications
+                </Typography>
+                <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                  New reuests to collect garbage are there have a look !
+                </Typography>
+              </Box>
+            </Fade>
+          </Modal>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -222,7 +293,25 @@ const Dashboard_collector = () => {
                 justifyContent: "center",
               }}
             >
-              <InboxIcon />
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
+          </ListItemButton>
+          <ListItemButton
+            sx={{
+              minHeight: 48,
+              justifyContent: open ? "initial" : "center",
+              px: 2.5,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : "auto",
+                justifyContent: "center",
+              }}
+            >
+              <HistoryIcon />
             </ListItemIcon>
             <ListItemText primary="History" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
@@ -240,7 +329,7 @@ const Dashboard_collector = () => {
                 justifyContent: "center",
               }}
             >
-              <InboxIcon />
+              <PersonIcon />
             </ListItemIcon>
             <ListItemText primary="Profile" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
@@ -250,6 +339,12 @@ const Dashboard_collector = () => {
               justifyContent: open ? "initial" : "center",
               px: 2.5,
             }}
+            onClick={() => {
+              localStorage.removeItem('token');
+              localStorage.removeItem('user');
+              navigate('/');
+              console.log('logout');
+            }}
           >
             <ListItemIcon
               sx={{
@@ -258,7 +353,7 @@ const Dashboard_collector = () => {
                 justifyContent: "center",
               }}
             >
-              <InboxIcon />
+              <LogoutIcon />
             </ListItemIcon>
             <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
           </ListItemButton>
@@ -266,9 +361,7 @@ const Dashboard_collector = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Grid container spacing={6}>
-          <Grid_comp />
-          <Grid_comp />
+        <Grid container spacing={4} style={{width: "20rem"}}>
           <Grid_comp />
         </Grid>
 
@@ -285,11 +378,12 @@ const Dashboard_collector = () => {
         </div>
 
         <div className="calendar" style={{ marginTop: "10rem" }}>
-          <Cal_comp_pick />
+          <Cal_comp_pick user={user._id}/>
         </div>
 
         {/* <CollectorSchedule /> */}
-        <UserDistance data={requests} />
+        <Typography variant="h3" sx={{ mt: 3, mb: 1, width : "100%", textAlign: 'center', paddingBottom: '30px' }}> Schedule the Request </Typography>
+        <UserDistance data={requests} getRequests = {getRequests} email= {user?.email}/>
       </Box>
     </Box>
   );

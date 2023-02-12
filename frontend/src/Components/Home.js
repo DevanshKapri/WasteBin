@@ -3,8 +3,10 @@ import BannerBackground from "../Assets/bg-1.png";
 import BannerImage from "../Assets/img-home.png";
 import Navbar from "./Navbar";
 import { FiArrowRight } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <div className="home-container">
       <Navbar />
@@ -23,8 +25,12 @@ const Home = () => {
             state-of-the-art technology and innovative approach, we make waste
             management simple, efficient, and environmentally friendly.
           </p>
-          <button className="secondary-button">
-            Order Now <FiArrowRight />{" "}
+          <button className="secondary-button"
+            onClick={() => {
+              navigate("/register");
+            }}
+          >
+            Register Now <FiArrowRight />{" "}
           </button>
         </div>
         <div className="home-image-section">

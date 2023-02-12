@@ -5,7 +5,7 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 
-const Grid_comp = () => {
+const Grid_comp = ({count}) => {
     let data;
 
     //temporary
@@ -15,13 +15,10 @@ const Grid_comp = () => {
     
 
     return (
-        <div className="widget">
+        <div className="widget" style={{height: "10rem"}}>
             <div className="left">
-                <span className="title" style={{fontSize: "1.2rem"}}>BALANCE</span>
-                <span className="counter">
-                    {"$"} {1200}
-                </span>
-                <span className="link">See details</span>
+                <span className="title" style={{fontSize: "1.2rem"}}>Welcome,admin!</span>
+                <span className="link">Total number of collectors: {count} </span>
             </div>
             <div className="right">
                 <AccountBalanceWalletOutlinedIcon

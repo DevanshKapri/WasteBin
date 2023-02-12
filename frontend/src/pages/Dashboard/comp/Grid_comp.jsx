@@ -15,8 +15,9 @@ const Grid_comp = (props) => {
 
 
 
+
     return (
-        <div className="widget">
+        <div className="widget" style={{height: "18rem"}}>
             <div className="left">
                 <span className="title" style={{ fontSize: "1.4rem" }}>{props.header}</span>
                 <span className="title" style={{ fontSize: "0.8rem", position: "relative", bottom: "1.5rem" }}>{props.subheader}</span>

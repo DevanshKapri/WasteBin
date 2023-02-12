@@ -12,6 +12,7 @@ import "./vendor/login/select2/select2.min.css";
 import "./vendor/login/daterangepicker/daterangepicker.css";
 import "./css/login/util.css";
 import "./css/login/main.css";
+import  socket  from '../../socket';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {auth } from '../../firebase';
 
@@ -40,7 +41,26 @@ export default function Login(props) {
         localStorage.setItem('user', JSON.stringify(response.data));
         setUser(response.data)
         console.log(response.data);
-        navigate('/dashboard')
+        if(response.data.role === 'collector'){
+          socket.emit('join_room', 'room2')
+          if(response.data.status === 'unverified')
+          {
+            alert('Please wait for the admin to approve your request for signing in as a collector and login after sometime')
+            navigate('/');
+          }
+          else
+          {
+            navigate('/collector')
+          }
+        }
+        else if(response.data.role === 'User') {
+          socket.emit('join_room', 'room1')
+          navigate('/dashboard')
+        }
+        else
+        {
+          navigate('/admin')
+        }
       })
       .catch((error) => {
         setErrorMessage(error);
@@ -60,7 +80,7 @@ export default function Login(props) {
     await signInWithEmailAndPassword(auth, state.email, state.password)
       .then((userCredential) => {
         setToken(userCredential.user.accessToken)
-        setErrorMessage('User signed successfully')
+        // setErrorMessage('User signed successfully')
         localStorage.setItem('token', JSON.stringify(userCredential.user.accessToken));
         console.log(userCredential.user.accessToken);
         SubmitMongo()
